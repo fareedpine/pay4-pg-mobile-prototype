@@ -26,7 +26,7 @@ Use:
 
 Pay4 is a standalone payment mode in Pine Labs / Plural PG checkout. It is not inside Cards or EMI.
 
-Do not bring back Croma, Wakefit web checkout, ₹95,949, bank selection, fake bank logo cards, or the heading “Pay4 payment successful”.
+Do not bring back prior merchant examples, prior demo amounts, bank selection, fake bank logo cards, or payment-mode-specific success headings.
 
 ## Variant Requirement
 

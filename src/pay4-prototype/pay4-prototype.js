@@ -5,7 +5,7 @@ if (window.__pay4PrototypeCleanup) {
 }
 
 const ASSETS = {
-  pay4: "/assets/pay4-logo-by-pinelabs.png",
+  pay4: `${import.meta.env.BASE_URL}assets/pay4-logo-by-pinelabs.png`,
   stanley: new URL("./assets/stanley-living-logo.svg", import.meta.url).href,
   hdfc: new URL("./assets/hdfc-bank-logo.svg", import.meta.url).href,
   icici: new URL("./assets/icici-bank-logo.svg", import.meta.url).href,
