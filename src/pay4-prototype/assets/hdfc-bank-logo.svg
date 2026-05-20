@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2048" height="320" viewBox="0 0 2048 320" role="img" aria-label="HDFC Bank">
+  <rect width="2048" height="320" fill="#0a4f86"/>
+  <rect width="342" height="320" fill="#ed1c2a"/>
+  <path d="M60 65h220v190H60z" fill="#fff"/>
+  <path d="M118 126h104v68H118z" fill="#0a4f86"/>
+  <path d="M153 0h34v320h-34zM0 154h342v34H0z" fill="#fff"/>
+  <text x="445" y="225" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="170" font-weight="800" letter-spacing="10">HDFC BANK</text>
+</svg>

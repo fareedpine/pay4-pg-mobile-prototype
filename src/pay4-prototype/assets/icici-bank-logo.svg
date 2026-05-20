@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="255" height="197" viewBox="0 0 255 197" role="img" aria-label="ICICI Bank">
+  <rect width="255" height="197" fill="#ffffff"/>
+  <defs>
+    <linearGradient id="iciciGlow" x1="20" y1="160" x2="160" y2="20" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f9a01b"/>
+      <stop offset="0.52" stop-color="#d74f16"/>
+      <stop offset="1" stop-color="#9b1630"/>
+    </linearGradient>
+  </defs>
+  <path d="M132 18c39 4 66 35 58 75-10 50-57 82-104 72-38-8-58-40-50-76 9-44 48-75 96-71Z" fill="url(#iciciGlow)"/>
+  <path d="M118 46c19-3 31 6 27 22-5 19-23 25-39 20l-9 53H68l15-88h29l-3 18c3-13 6-22 9-25Z" fill="#fff"/>
+  <text x="19" y="180" fill="#073858" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800" font-style="italic">ICICI Bank</text>
+</svg>
