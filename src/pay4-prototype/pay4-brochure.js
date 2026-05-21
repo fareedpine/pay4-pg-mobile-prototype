@@ -6,8 +6,8 @@ const ASSETS = {
   hdfc: `${import.meta.env.BASE_URL}assets/brochure-logos/hdfc-bank-logo.svg`,
   icici: `${import.meta.env.BASE_URL}assets/brochure-logos/icici-bank-logo.svg`,
   axis: `${import.meta.env.BASE_URL}assets/brochure-logos/axis-bank-logo.svg`,
-  kotak: `${import.meta.env.BASE_URL}assets/brochure-logos/kotak-bank-logo.webp`,
-  sbi: `${import.meta.env.BASE_URL}assets/brochure-logos/sbi-card-logo.svg`
+  kotak: `${import.meta.env.BASE_URL}assets/brochure-logos/kotak-bank-logo.svg`,
+  sbi: `${import.meta.env.BASE_URL}assets/brochure-logos/sbi-bank-logo.svg`
 };
 
 const issuers = [
@@ -15,7 +15,7 @@ const issuers = [
   { name: "ICICI Bank", logo: ASSETS.icici, className: "issuer-icici" },
   { name: "Axis Bank", logo: ASSETS.axis, className: "issuer-axis" },
   { name: "Kotak", logo: ASSETS.kotak, className: "issuer-kotak" },
-  { name: "SBI Card", logo: ASSETS.sbi, className: "issuer-sbi", status: "Coming soon" }
+  { name: "SBI", logo: ASSETS.sbi, className: "issuer-sbi" }
 ];
 
 const customerBenefits = [
@@ -144,18 +144,17 @@ function card(title, copy, className = "") {
   `;
 }
 
-function issuerLogoRow({ compact = false, viewAll = false } = {}) {
+function issuerLogoRow({ compact = false, showMore = true } = {}) {
   return `
     <section class="issuer-panel ${compact ? "issuer-panel-compact" : ""}">
       <div class="issuer-label">Accepted Credit Card Issuers</div>
       <div class="issuer-logo-row">
         ${issuers.map((issuer) => `
-          <div class="issuer-logo-pill ${issuer.className}" title="${issuer.name}">
+          <div class="issuer-logo-mark ${issuer.className}" title="${issuer.name}">
             <img src="${issuer.logo}" alt="${issuer.name}" />
-            ${issuer.status ? `<small>${issuer.status}</small>` : ""}
           </div>
         `).join("")}
-        ${viewAll ? `<button class="issuer-view-all" type="button">View all supported banks</button>` : ""}
+        ${showMore ? `<span class="issuer-more">SBI Card &amp; more coming soon</span>` : ""}
       </div>
     </section>
   `;
@@ -195,7 +194,7 @@ function checkoutMockup() {
             <small>Includes ₹99 bank processing fee</small>
           </div>
         </div>
-        ${issuerLogoRow()}
+        ${issuerLogoRow({ compact: true, showMore: false })}
       </div>
     </aside>
   `;
@@ -374,7 +373,7 @@ function pay4ModuleMockup() {
           <small>Includes ₹99 bank processing fee</small>
         </div>
       </div>
-      ${issuerLogoRow({ compact: true })}
+      ${issuerLogoRow({ showMore: true })}
       <div class="card-preview">
         <div>
           <span>Add eligible credit card</span>
