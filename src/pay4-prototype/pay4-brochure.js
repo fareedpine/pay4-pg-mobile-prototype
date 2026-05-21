@@ -1,7 +1,7 @@
 const app = document.querySelector("#brochure-app");
 
 const ASSETS = {
-  pay4: `${import.meta.env.BASE_URL}assets/pay4-logo-by-pinelabs.png`,
+  pay4: `${import.meta.env.BASE_URL}assets/pay4-logo-brochure.svg`,
   pineLabs: `${import.meta.env.BASE_URL}assets/brochure-logos/pinelabs-logo.svg`,
   hdfc: `${import.meta.env.BASE_URL}assets/brochure-logos/hdfc-bank-logo.svg`,
   icici: `${import.meta.env.BASE_URL}assets/brochure-logos/icici-bank-logo.svg`,
@@ -180,7 +180,6 @@ function checkoutMockup() {
       <div class="checkout-pay4">
         <div class="checkout-pay4-head">
           ${pay4Logo("mock-pay4-logo")}
-          <span>NEW</span>
         </div>
         <p>Pay ₹10,099 today, then ₹10,000/month for 3 months.</p>
         <div class="amount-pair">
@@ -356,7 +355,6 @@ function pay4ModuleMockup() {
     <aside class="pay4-module">
       <div class="checkout-pay4-head">
         ${pay4Logo("mock-pay4-logo")}
-        <span>NEW</span>
       </div>
       <p>Pay ₹10,099 today, then ₹10,000/month for 3 months.</p>
       <div class="module-meta">

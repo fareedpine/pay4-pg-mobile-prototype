@@ -1,0 +1,25 @@
+<svg width="320" height="210" viewBox="0 0 320 210" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pay4 by Pine Labs">
+  <defs>
+    <linearGradient id="pay4BrochureGreen" x1="26" y1="66" x2="188" y2="132" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#18A853"/>
+      <stop offset="1" stop-color="#047A46"/>
+    </linearGradient>
+    <linearGradient id="pay4BrochurePurple" x1="180" y1="56" x2="282" y2="138" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7A49E8"/>
+      <stop offset="1" stop-color="#3F24B8"/>
+    </linearGradient>
+    <linearGradient id="pay4BrochureArrow" x1="234" y1="26" x2="286" y2="60" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#33B768"/>
+      <stop offset="1" stop-color="#0C864C"/>
+    </linearGradient>
+    <filter id="pay4BrochureShadow" x="10" y="46" width="288" height="106" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="2" stdDeviation="1.8" flood-color="#173A30" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  <g filter="url(#pay4BrochureShadow)">
+    <text x="22" y="128" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="74" font-weight="900" font-style="italic" letter-spacing="-6" fill="url(#pay4BrochureGreen)">PAY</text>
+    <text x="165" y="130" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="118" font-weight="900" font-style="italic" letter-spacing="-10" fill="url(#pay4BrochurePurple)">4</text>
+  </g>
+  <path d="M233 42L285 18L282 70C269 55 253 46 233 42Z" fill="url(#pay4BrochureArrow)"/>
+  <text x="84" y="174" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#6D746F">by Pine Labs</text>
+</svg>

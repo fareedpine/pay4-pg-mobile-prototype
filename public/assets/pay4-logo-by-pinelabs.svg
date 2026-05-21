@@ -16,7 +16,6 @@
       <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#173A30" flood-opacity="0.18"/>
     </filter>
   </defs>
-  <rect width="392" height="232" rx="8" fill="white"/>
   <g filter="url(#softShadow)">
     <text x="32" y="142" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="78" font-weight="900" font-style="italic" letter-spacing="-6" fill="url(#pay4Green)">PAY</text>
     <text x="222" y="143" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="126" font-weight="900" font-style="italic" letter-spacing="-11" fill="url(#pay4Purple)">4</text>

@@ -388,22 +388,21 @@ p {
 }
 
 .checkout-pay4-head {
-  justify-content: space-between;
+  justify-content: flex-start;
+}
+
+.header-pay4-logo,
+.nav-pay4-logo,
+.mock-pay4-logo {
+  display: block;
+  height: auto;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
 }
 
 .mock-pay4-logo {
-  display: block;
   width: 112px;
-  height: auto;
-}
-
-.checkout-pay4-head > span {
-  padding: 5px 9px;
-  border-radius: 999px;
-  color: var(--pine-800);
-  background: var(--mint-100);
-  font-size: 10px;
-  font-weight: 950;
 }
 
 .checkout-pay4 p,
