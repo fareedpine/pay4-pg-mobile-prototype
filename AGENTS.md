@@ -19,7 +19,7 @@ Use:
 - Demo merchant: Stanley Living
 - Product: Handwoven Wool Carpet
 - Order amount: ₹40,000
-- Pay4 amount framing: Pay ₹10,099 today, then 3 monthly payments of ₹10,000
+- Pay4 amount framing: Pay ₹10,099 today, then ₹10,000/month for 3 months
 - Processing fee: ₹99
 - Pay today: ₹10,099
 - Funding instrument: eligible credit card
@@ -40,7 +40,7 @@ UI behavior:
 
 - Pay4 appears near the top, but not overly expanded.
 - Pay4 row is clean and restrained.
-- Shows Pay4, By Pine Labs, Pay ₹10,099 today, then 3 monthly payments of ₹10,000, and NEW badge.
+- Shows Pay4, By Pine Labs, Pay ₹10,099 today, then ₹10,000/month for 3 months, and NEW badge.
 - No large affordability banner.
 - Trust/support copy is subtle.
 - User taps View Pay4 Details to enter Pay4 detail.
@@ -57,7 +57,7 @@ UI behavior:
 
 - Pay4 is first and visually highlighted.
 - Pay4 is expanded by default on checkout landing.
-- Shows Pay ₹10,099 today and then 3 monthly payments of ₹10,000.
+- Shows Pay ₹10,099 today and then ₹10,000/month for 3 months.
 - Shows benefit strip: Interest-free, No hidden charges, Safe & secure, Trusted by Pine Labs.
 - Checkout landing CTA is Continue with Pay4.
 - Final Pay4 detail CTA remains Pay ₹10,099 Now.
@@ -77,7 +77,7 @@ UI behavior:
 - Payment modes look more equal.
 - Pay4 is visible and standalone, but less hero-like than Variant B.
 - Order: UPI, Cards, EMI, Pay4, Net Banking, Wallets.
-- Pay4 has NEW badge and a Pay ₹10,099 today plus 3 monthly payments cue.
+- Pay4 has NEW badge and a Pay ₹10,099 today plus ₹10,000/month for 3 months cue.
 - No default expanded hero treatment.
 
 What it tests: Whether Pay4 works when presented as one payment mode among others.
@@ -186,7 +186,7 @@ Do not regress:
 1. Select Pay4.
 2. See concise Pay4 explanation.
 3. See Pay ₹10,099 today.
-4. See then 3 monthly payments of ₹10,000.
+4. See then ₹10,000/month for 3 months.
 5. See accepted issuer chips as informational content.
 6. Enter eligible credit card details.
 7. Optionally save the card for faster Pay4 checkout next time.
@@ -199,7 +199,7 @@ Do not regress:
 
 1. Select Pay4.
 2. See saved HDFC Bank Credit Card ending 1234.
-3. See Pay ₹10,099 today, then 3 monthly payments of ₹10,000.
+3. See Pay ₹10,099 today, then ₹10,000/month for 3 months.
 4. CTA: Pay ₹10,099 Now.
 5. Option: Use Another Card.
 6. Simulated processing/authentication.

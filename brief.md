@@ -10,7 +10,7 @@ Pay4 by Pine Labs lets online shoppers split eligible credit-card-funded purchas
 
 Pay4 is a standalone payment mode in Pine Labs / Plural PG checkout. It is not inside Cards and it is not inside EMI. The credit card is the funding instrument; Pay4 is the payment mode.
 
-Pay4 reframes high upfront purchase amounts into a lower first-payment decision. For the current demo: a ₹40,000 order becomes Pay ₹10,099 today, then 3 monthly payments of ₹10,000. The amount due today includes a ₹10,000 first payment plus a ₹99 bank processing fee.
+Pay4 reframes high upfront purchase amounts into a lower first-payment decision. For the current demo: a ₹40,000 order becomes Pay ₹10,099 today, then ₹10,000/month for 3 months. The amount due today includes a ₹10,000 first payment plus a ₹99 bank processing fee.
 
 Pay4 is positioned as credit-card-funded online checkout affordability, not as separate Pine Labs underwriting. Issuer banks own credit, repayment, card limit treatment, bank booking, and future collections. Pine Labs orchestrates the checkout experience, eligibility/pricing display, bank/acquirer integration, merchant settlement, reporting, and reconciliation.
 
@@ -19,7 +19,7 @@ Pay4 is positioned as credit-card-funded online checkout affordability, not as s
 - Merchant: Stanley Living
 - Product: Handwoven Wool Carpet
 - Order amount: ₹40,000
-- Pay4 framing: Pay ₹10,099 today, then 3 monthly payments of ₹10,000
+- Pay4 framing: Pay ₹10,099 today, then ₹10,000/month for 3 months
 - Bank processing fee: ₹99
 - Pay today: ₹10,099
 - Supported issuers shown: HDFC Bank, ICICI Bank, Axis Bank, Kotak, SBI Card Coming Soon

@@ -35,7 +35,7 @@ Variant B is the recommended CEO first-time affordability demo. Variant D is the
 3. Add to cart and proceed to pay.
 4. Show the transition into Pine Labs / Plural PG mobile checkout.
 5. In Variant B, point out Pay4 as a standalone highlighted payment mode.
-6. Open Pay4 and show Pay ₹10,099 Today, then 3 monthly payments of ₹10,000.
+6. Open Pay4 and show Pay ₹10,099 Today, then ₹10,000/month for 3 months.
 7. Complete first-time card entry, optional save-card consent, required Pay4 terms consent, simulated authentication, and success.
 8. Switch to Variant D to show saved HDFC Bank Credit Card ending 1234 and quick-pay behavior.
 9. Show failure/retry and ineligible card states only if needed.
@@ -121,7 +121,7 @@ Success:
 
 Variant A, Minimal Trusted Checkout: Pay4 appears as a restrained standalone payment mode near the top. It tests whether Pay4 can work without heavy promotion.
 
-Variant B, Offer-led Pay4-first Checkout: Pay4 is first, highlighted, and expanded by default with Pay ₹10,099 Today, then 3 monthly payments of ₹10,000, and Continue with Pay4 on the checkout landing. This is the main CEO demo for first-time users.
+Variant B, Offer-led Pay4-first Checkout: Pay4 is first, highlighted, and expanded by default with Pay ₹10,099 Today, then ₹10,000/month for 3 months, and Continue with Pay4 on the checkout landing. This is the main CEO demo for first-time users.
 
 Variant C, Payment-method-first Checkout: Pay4 sits inside the normal hierarchy after UPI, Cards, and EMI. It tests whether Pay4 competes fairly as one payment mode among others.
 

@@ -39,7 +39,7 @@ This is the living Pay4 domain model and decision log. Update this file as produ
 - Supported issuers are informational only.
 - Show issuers before card entry.
 - Demo amount is ₹40,000.
-- Pay4 is framed as Pay ₹10,099 today, then 3 monthly payments of ₹10,000.
+- Pay4 is framed as Pay ₹10,099 today, then ₹10,000/month for 3 months.
 - Bank processing fee is ₹99.
 - Pay today is ₹10,099.
 - Fee must be explained wherever relevant.
@@ -74,7 +74,7 @@ This is the living Pay4 domain model and decision log. Update this file as produ
 - The current ₹99 value is only an example for prototype/demo.
 - Checkout must display the exact bank processing fee before authentication.
 - Pay Today must always be computed as first payment + bank processing fee.
-- Before authentication, the customer should consent to the Pay4 payment schedule, today's payable amount including bank processing fee, issuer-managed collection of the remaining 3 payments, and applicable issuer/Pine Labs/merchant terms.
+- Before authentication, the customer should consent to the Pay4 payment schedule, today's payable amount including bank processing fee, issuer-managed collection of 3 monthly payments, and applicable issuer/Pine Labs/merchant terms.
 - Saving a card for future Pay4 checkout is optional and should not gate payment CTA enablement.
 - Pay4 consent language is provisional and may change based on bank and internal risk guidance.
 - Unsupported BIN, issuer risk block, and similar Pay4 card ineligibility should use a safe customer-facing message: "This card is not eligible for Pay4. Please try another eligible credit card or choose another payment method."
@@ -166,7 +166,7 @@ Keep brochure/marketing language aligned with product decisions and legal/compli
 - Supported issuers are informational before card entry.
 - Current demo merchant is Stanley Living.
 - Current demo order is ₹40,000.
-- Current demo amount framing is Pay ₹10,099 today, then 3 monthly payments of ₹10,000.
+- Current demo amount framing is Pay ₹10,099 today, then ₹10,000/month for 3 months.
 - Current demo Pay Today is ₹10,099, including ₹99 bank processing fee.
 - Current demo success title is Payment Successful.
 - Current prototype keeps demo controls hidden by default.
@@ -242,7 +242,7 @@ Status: Draft / Needs validation
 Known decisions:
 - Customer promise is pay one-fourth today and the rest over the next 3 months using an eligible credit card.
 - Pay Today includes the first payment plus issuer-specific bank processing fee.
-- UI copy should frame the demo as Pay ₹10,099 today, then 3 monthly payments of ₹10,000, rather than using ₹10,000 × 4 as the primary message.
+- UI copy should frame the demo as Pay ₹10,099 today, then ₹10,000/month for 3 months, rather than using ambiguous total-split shorthand as the primary message.
 - Pay4 is not positioned as Pine Labs underwriting.
 
 Open risks:

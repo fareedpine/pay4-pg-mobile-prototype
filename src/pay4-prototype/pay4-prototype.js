@@ -669,7 +669,7 @@ function pay4MethodRow({ expanded = false, mode = "minimal" } = {}) {
         </span>
         <small>By Pine Labs · Pay in 4 simple payments</small>
         <small class="value-cue">Pay ${formatMoney(PAY_TODAY)} Today</small>
-        <small class="value-cue-secondary">Then 3 monthly payments of ${formatMoney(SPLIT_AMOUNT)}</small>
+        <small class="value-cue-secondary">Then ${formatMoney(SPLIT_AMOUNT)}/month for 3 months</small>
         ${rowCta ? `<small class="method-cta">${rowCta}</small>` : ""}
         ${message ? `<small class="inline-error">${message}</small>` : ""}
       </span>
@@ -703,9 +703,9 @@ function offerCheckoutExpansion(message) {
           <small>${formatMoney(SPLIT_AMOUNT)} first payment + ${formatMoney(PROCESSING_FEE)} bank processing fee</small>
         </div>
         <div>
-          <span>Remaining Payments</span>
-          <strong>3 × ${formatMoney(SPLIT_AMOUNT)}</strong>
-          <small>Collected monthly by your bank</small>
+          <span>Later</span>
+          <strong>${formatMoney(SPLIT_AMOUNT)}/month × 3</strong>
+          <small>Collected by your bank</small>
         </div>
       </div>
       ${benefitStrip()}
@@ -747,7 +747,7 @@ function pay4Panel() {
             <span class="badge">NEW</span>
           </div>
           ${pay4Logo("header")}
-          <p>Pay one-fourth now and the rest over the next 3 months.</p>
+          <p>Pay ${formatMoney(PAY_TODAY)} today, then ${formatMoney(SPLIT_AMOUNT)}/month for 3 months.</p>
         </div>
       </div>
 
@@ -758,9 +758,9 @@ function pay4Panel() {
           <small>${formatMoney(SPLIT_AMOUNT)} first payment + ${formatMoney(PROCESSING_FEE)} bank processing fee</small>
         </div>
         <div>
-          <span>Remaining Payments</span>
-          <strong>3 × ${formatMoney(SPLIT_AMOUNT)}</strong>
-          <small>Collected monthly by your bank</small>
+          <span>Later</span>
+          <strong>${formatMoney(SPLIT_AMOUNT)}/month × 3</strong>
+          <small>Collected by your bank</small>
         </div>
       </div>
 
@@ -799,7 +799,7 @@ function savedCardModule({ compact = false } = {}) {
         ${lineIcon("cards")}
         <div>
           <strong>Saved ${SAVED_CARD}</strong>
-          <span>Pay ${formatMoney(PAY_TODAY)} Today · Then 3 monthly payments of ${formatMoney(SPLIT_AMOUNT)}</span>
+          <span>Pay ${formatMoney(PAY_TODAY)} Today · Then ${formatMoney(SPLIT_AMOUNT)}/month for 3 months</span>
         </div>
         <span class="selected-dot">✓</span>
       </div>
@@ -840,7 +840,7 @@ function cardEntryModule() {
       </label>
       <label class="check-row required-check-row">
         <input type="checkbox" data-action="toggle-consent" ${state.consent === "true" ? "checked" : ""} />
-        <span>I understand Pay4 will collect the remaining 3 payments as per Pay4 terms.</span>
+        <span>I understand my bank will collect 3 monthly payments of ${formatMoney(SPLIT_AMOUNT)} as per Pay4 terms.</span>
       </label>
       ${isUsingAnotherCard() ? `<button class="text-button" type="button" data-action="use-saved-card">Use Saved Card</button>` : ""}
     </section>
@@ -880,9 +880,9 @@ function pay4DisclosureSections() {
       <details>
         <summary>Payment Schedule</summary>
         <div class="schedule-row"><span>Today</span><strong>${formatMoney(PAY_TODAY)}</strong><small>${formatMoney(SPLIT_AMOUNT)} first payment + ${formatMoney(PROCESSING_FEE)} bank processing fee</small></div>
-        <div class="schedule-row"><span>After 1 month</span><strong>${formatMoney(SPLIT_AMOUNT)}</strong></div>
-        <div class="schedule-row"><span>After 2 months</span><strong>${formatMoney(SPLIT_AMOUNT)}</strong></div>
-        <div class="schedule-row"><span>After 3 months</span><strong>${formatMoney(SPLIT_AMOUNT)}</strong></div>
+        <div class="schedule-row"><span>Month 1</span><strong>${formatMoney(SPLIT_AMOUNT)}</strong></div>
+        <div class="schedule-row"><span>Month 2</span><strong>${formatMoney(SPLIT_AMOUNT)}</strong></div>
+        <div class="schedule-row"><span>Month 3</span><strong>${formatMoney(SPLIT_AMOUNT)}</strong></div>
       </details>
       <details>
         <summary>Security & Terms</summary>
@@ -961,7 +961,7 @@ function successScreen() {
       <div class="success-mark" aria-hidden="true">✓</div>
       ${pay4Logo("state")}
       <h1>Payment Successful</h1>
-      <p>You paid ${formatMoney(SPLIT_AMOUNT)} today plus a ${formatMoney(PROCESSING_FEE)} bank processing fee. Your remaining 3 payments of ${formatMoney(SPLIT_AMOUNT)} will be collected monthly by your bank as per Pay4 terms.</p>
+      <p>You paid ${formatMoney(SPLIT_AMOUNT)} today plus a ${formatMoney(PROCESSING_FEE)} bank processing fee. Your remaining 3 monthly payments of ${formatMoney(SPLIT_AMOUNT)} will be collected by your bank as per Pay4 terms.</p>
       <div class="receipt-card">
         <div><span>Merchant</span><strong>${MERCHANT}</strong></div>
         <div><span>Amount Paid Today</span><strong>${formatMoney(PAY_TODAY)}</strong></div>
@@ -1076,7 +1076,7 @@ function demoControls() {
           ...state,
           merchant: MERCHANT,
           orderAmount: formatMoney(ORDER_AMOUNT),
-          pay4Framing: `Pay ${formatMoney(PAY_TODAY)} today, then 3 monthly payments of ${formatMoney(SPLIT_AMOUNT)}`,
+          pay4Framing: `Pay ${formatMoney(PAY_TODAY)} today, then ${formatMoney(SPLIT_AMOUNT)}/month for 3 months`,
           payToday: formatMoney(PAY_TODAY)
         }, null, 2))}</pre>
       </details>
