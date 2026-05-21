@@ -15,7 +15,7 @@ Stanley Living is the demo merchant.
 - Merchant: Stanley Living
 - Product: Handwoven Wool Carpet
 - Order amount: ₹40,000
-- Pay4 split: ₹10,000 x 4 payments
+- Pay4 amount framing: Pay ₹10,099 today, then 3 monthly payments of ₹10,000
 - Processing fee: ₹99
 - Pay today: ₹10,099
 - Funding instrument: eligible credit card
@@ -58,7 +58,7 @@ These should be replaced or validated with approved production assets before ext
 
 Hypothesis: Pay4 should behave like a normal trusted payment mode with minimal extra promotion.
 
-This variant keeps Pay4 restrained and near the top, with Pay4, By Pine Labs, NEW, and ₹10,000 × 4 Payments. It avoids large affordability banners and tests whether Pay4 can succeed as a simple standalone payment mode.
+This variant keeps Pay4 restrained and near the top, with Pay4, By Pine Labs, NEW, and Pay ₹10,099 today plus 3 monthly payments of ₹10,000. It avoids large affordability banners and tests whether Pay4 can succeed as a simple standalone payment mode.
 
 This is an exploratory alternative.
 
@@ -66,7 +66,7 @@ This is an exploratory alternative.
 
 Hypothesis: The strongest demo story is affordability-led: Pay ₹10,099 today instead of ₹40,000 upfront.
 
-This is the main CEO demo variant for first-time users. Pay4 is first, expanded by default, and includes Pay Today ₹10,099, ₹10,000 × 4 Payments, the trust benefit strip, and Continue with Pay4 on the checkout landing. It should not imply discount or savings.
+This is the main CEO demo variant for first-time users. Pay4 is first, expanded by default, and includes Pay ₹10,099 today, then 3 monthly payments of ₹10,000, the trust benefit strip, and Continue with Pay4 on the checkout landing. It should not imply discount or savings.
 
 This is the recommended CEO first-time affordability demo.
 
@@ -74,7 +74,7 @@ This is the recommended CEO first-time affordability demo.
 
 Hypothesis: Pay4 should sit inside the normal payment-method hierarchy and compete fairly with UPI, Cards, EMI, Net Banking, and Wallets.
 
-This variant uses the order UPI, Cards, EMI, Pay4, Net Banking, Wallets. Pay4 remains standalone with NEW and ₹10,000 × 4 Payments, but it is not expanded by default.
+This variant uses the order UPI, Cards, EMI, Pay4, Net Banking, Wallets. Pay4 remains standalone with NEW and Pay ₹10,099 today plus 3 monthly payments of ₹10,000, but it is not expanded by default.
 
 This is an exploratory alternative.
 
@@ -125,14 +125,15 @@ First-time user:
 
 1. Select Pay4.
 2. See concise Pay4 explanation.
-3. See ₹10,000 × 4 Payments.
-4. See Pay today ₹10,099.
+3. See Pay ₹10,099 today.
+4. See then 3 monthly payments of ₹10,000.
 5. See accepted issuers informational logos/chips.
 6. Enter eligible credit card details.
-7. Accept consent/terms.
-8. Pay ₹10,099 Now.
-9. Simulated processing/authentication.
-10. Success or failure.
+7. Optionally save the card for faster Pay4 checkout next time.
+8. Accept required Pay4 terms consent.
+9. Pay ₹10,099 Now.
+10. Simulated processing/authentication.
+11. Success or failure.
 
 Repeat user:
 
@@ -168,7 +169,7 @@ Before demo, verify:
 - Variant switch through Demo Controls and `variant=a|b|c|d` URLs.
 - Variant A, B, C, and D are visibly distinct.
 - Eligibility control behavior for eligible and ineligible states.
-- Card form validation for number, expiry, CVV, name, consent, and CTA enablement.
+- Card form validation for number, expiry, CVV, name, optional save-card consent, required Pay4 terms consent, and CTA enablement.
 - Prototype expiry format is MM/YY.
 - Repeat saved-card default path, Use Another Card, and Use Saved Card.
 - Debit, unsupported card, SBI coming soon, amount, failure/retry, and success states.

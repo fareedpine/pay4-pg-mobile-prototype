@@ -1255,6 +1255,11 @@ button:disabled {
   font-weight: 900;
 }
 
+.value-cue-secondary {
+  color: #52675f !important;
+  font-weight: 750;
+}
+
 .method-cta {
   color: var(--pine-800) !important;
   font-weight: 900;
@@ -1659,6 +1664,11 @@ button:disabled {
   height: 17px;
   margin-top: 1px;
   accent-color: var(--pine-700);
+}
+
+.optional-check-row {
+  color: #60736c !important;
+  font-weight: 650 !important;
 }
 
 .pay4-disclosures {

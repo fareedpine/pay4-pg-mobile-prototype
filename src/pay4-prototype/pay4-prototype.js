@@ -111,7 +111,8 @@ function createEmptyFormState() {
     cardNumber: "",
     expiry: "",
     cvv: "",
-    cardName: ""
+    cardName: "",
+    saveCard: false
   };
 }
 
@@ -240,6 +241,13 @@ function expiryComplete() {
   return month >= 1 && month <= 12;
 }
 
+function expiryHasInvalidMonth() {
+  const digits = formState.expiry.replace(/\D/g, "");
+  if (digits.length < 2) return false;
+  const month = Number(digits.slice(0, 2));
+  return month < 1 || month > 12;
+}
+
 function cvvComplete() {
   return /^\d{3}$/.test(formState.cvv);
 }
@@ -286,6 +294,16 @@ function cardHelperMessage() {
   const message = pay4UnavailableMessage();
   if (!hasCardDetection()) return "Enter an eligible credit card to continue with Pay4.";
   if (message) return message;
+  return "";
+}
+
+function pay4CtaHelperMessage() {
+  const message = pay4UnavailableMessage();
+  if (message) return message;
+  if (isRepeatUser() && !isUsingAnotherCard()) return "";
+  if (expiryHasInvalidMonth()) return "Enter a valid expiry month.";
+  if (cardEligible() && formFieldsComplete() && !consentAccepted()) return "Accept Pay4 terms to continue.";
+  if (!pay4Ready()) return "Complete card details to continue.";
   return "";
 }
 
@@ -650,7 +668,8 @@ function pay4MethodRow({ expanded = false, mode = "minimal" } = {}) {
           <em>NEW</em>
         </span>
         <small>By Pine Labs · Pay in 4 simple payments</small>
-        <small class="value-cue">${formatMoney(SPLIT_AMOUNT)} × 4 Payments</small>
+        <small class="value-cue">Pay ${formatMoney(PAY_TODAY)} Today</small>
+        <small class="value-cue-secondary">Then 3 monthly payments of ${formatMoney(SPLIT_AMOUNT)}</small>
         ${rowCta ? `<small class="method-cta">${rowCta}</small>` : ""}
         ${message ? `<small class="inline-error">${message}</small>` : ""}
       </span>
@@ -681,11 +700,12 @@ function offerCheckoutExpansion(message) {
         <div>
           <span>Pay Today</span>
           <strong>${formatMoney(PAY_TODAY)}</strong>
-          <small>Includes ${formatMoney(PROCESSING_FEE)} bank processing fee</small>
+          <small>${formatMoney(SPLIT_AMOUNT)} first payment + ${formatMoney(PROCESSING_FEE)} bank processing fee</small>
         </div>
         <div>
-          <span>Pay in 4 Payments</span>
-          <strong>${formatMoney(SPLIT_AMOUNT)} × 4</strong>
+          <span>Remaining Payments</span>
+          <strong>3 × ${formatMoney(SPLIT_AMOUNT)}</strong>
+          <small>Collected monthly by your bank</small>
         </div>
       </div>
       ${benefitStrip()}
@@ -733,13 +753,14 @@ function pay4Panel() {
 
       <div class="split-card">
         <div>
-          <span>Pay in 4 Payments</span>
-          <strong>${formatMoney(SPLIT_AMOUNT)} × 4 Payments</strong>
-        </div>
-        <div>
           <span>Pay Today</span>
           <strong>${formatMoney(PAY_TODAY)}</strong>
-          <small>Includes ${formatMoney(PROCESSING_FEE)} bank processing fee</small>
+          <small>${formatMoney(SPLIT_AMOUNT)} first payment + ${formatMoney(PROCESSING_FEE)} bank processing fee</small>
+        </div>
+        <div>
+          <span>Remaining Payments</span>
+          <strong>3 × ${formatMoney(SPLIT_AMOUNT)}</strong>
+          <small>Collected monthly by your bank</small>
         </div>
       </div>
 
@@ -777,8 +798,8 @@ function savedCardModule({ compact = false } = {}) {
       <div class="saved-card-row">
         ${lineIcon("cards")}
         <div>
-          <strong>${SAVED_CARD}</strong>
-          <span>${formatMoney(SPLIT_AMOUNT)} × 4 · Pay Today ${formatMoney(PAY_TODAY)}</span>
+          <strong>Saved ${SAVED_CARD}</strong>
+          <span>Pay ${formatMoney(PAY_TODAY)} Today · Then 3 monthly payments of ${formatMoney(SPLIT_AMOUNT)}</span>
         </div>
         <span class="selected-dot">✓</span>
       </div>
@@ -813,7 +834,11 @@ function cardEntryModule() {
         <span>Name on Card</span>
         <input type="text" autocomplete="off" placeholder="As Printed on Card" data-action="card-input" data-field="cardName" value="${formValue("cardName")}" />
       </label>
-      <label class="check-row">
+      <label class="check-row optional-check-row">
+        <input type="checkbox" data-action="toggle-save-card" ${formState.saveCard ? "checked" : ""} />
+        <span>Save this card for faster Pay4 checkout next time.</span>
+      </label>
+      <label class="check-row required-check-row">
         <input type="checkbox" data-action="toggle-consent" ${state.consent === "true" ? "checked" : ""} />
         <span>I understand Pay4 will collect the remaining 3 payments as per Pay4 terms.</span>
       </label>
@@ -826,19 +851,23 @@ function cardDetectionMarkup() {
   const card = detectedCardState();
   const error = pay4UnavailableMessage();
   const digits = cardNumberDigits();
+  const items = [];
 
   if (error) return `<div class="inline-status is-error">${error}</div>`;
-  if (digits.length > 0 && digits.length < 16) return `<div class="inline-status is-warning">Enter a 16-digit card number.</div>`;
-  if (!card) return "";
+  if (digits.length > 0 && digits.length < 16) items.push(`<div class="inline-status is-warning">Enter a 16-digit card number.</div>`);
+  if (expiryHasInvalidMonth()) items.push(`<div class="inline-status is-warning">Enter a valid expiry month.</div>`);
+  if (!card) return items.join("");
 
   const label = card.id === "eligible" ? "Eligible Credit Card" : `${card.name} Credit Card`;
 
-  return `
+  items.push(`
     <div class="inline-status is-ok">
       <span>Detected Card</span>
       <strong>${label}</strong>
     </div>
-  `;
+  `);
+
+  return items.join("");
 }
 
 function pay4DisclosureSections() {
@@ -850,10 +879,10 @@ function pay4DisclosureSections() {
       </details>
       <details>
         <summary>Payment Schedule</summary>
-        <div class="schedule-row"><span>Today</span><strong>${formatMoney(SPLIT_AMOUNT)} + ${formatMoney(PROCESSING_FEE)} bank processing fee</strong></div>
-        <div class="schedule-row"><span>2nd payment</span><strong>${formatMoney(SPLIT_AMOUNT)}</strong></div>
-        <div class="schedule-row"><span>3rd payment</span><strong>${formatMoney(SPLIT_AMOUNT)}</strong></div>
-        <div class="schedule-row"><span>4th payment</span><strong>${formatMoney(SPLIT_AMOUNT)}</strong></div>
+        <div class="schedule-row"><span>Today</span><strong>${formatMoney(PAY_TODAY)}</strong><small>${formatMoney(SPLIT_AMOUNT)} first payment + ${formatMoney(PROCESSING_FEE)} bank processing fee</small></div>
+        <div class="schedule-row"><span>After 1 month</span><strong>${formatMoney(SPLIT_AMOUNT)}</strong></div>
+        <div class="schedule-row"><span>After 2 months</span><strong>${formatMoney(SPLIT_AMOUNT)}</strong></div>
+        <div class="schedule-row"><span>After 3 months</span><strong>${formatMoney(SPLIT_AMOUNT)}</strong></div>
       </details>
       <details>
         <summary>Security & Terms</summary>
@@ -919,7 +948,7 @@ function processingScreen() {
       <div class="processing-card">
         ${pay4Logo("state")}
         <span>${MERCHANT}</span>
-        <strong>${formatMoney(PAY_TODAY)}</strong>
+        <strong>${formatMoney(PAY_TODAY)} today</strong>
         <small>Pay4 by Pine Labs · ${isRepeatUser() ? SAVED_CARD : `${cardState().name} Credit Card`}</small>
       </div>
     </section>
@@ -932,7 +961,7 @@ function successScreen() {
       <div class="success-mark" aria-hidden="true">✓</div>
       ${pay4Logo("state")}
       <h1>Payment Successful</h1>
-      <p>You paid ${formatMoney(SPLIT_AMOUNT)} today plus a ${formatMoney(PROCESSING_FEE)} bank processing fee. Your remaining 3 payments of ${formatMoney(SPLIT_AMOUNT)} will be collected by your bank as per Pay4 terms.</p>
+      <p>You paid ${formatMoney(SPLIT_AMOUNT)} today plus a ${formatMoney(PROCESSING_FEE)} bank processing fee. Your remaining 3 payments of ${formatMoney(SPLIT_AMOUNT)} will be collected monthly by your bank as per Pay4 terms.</p>
       <div class="receipt-card">
         <div><span>Merchant</span><strong>${MERCHANT}</strong></div>
         <div><span>Amount Paid Today</span><strong>${formatMoney(PAY_TODAY)}</strong></div>
@@ -989,15 +1018,14 @@ function fixedBottomCta() {
   }
 
   if (state.step === "pay4" && isPay4Selected()) {
-    const message = pay4UnavailableMessage();
+    const message = pay4CtaHelperMessage();
     const ready = pay4Ready();
     const disabled = !ready;
     const buttonLabel = ready ? `Pay ${formatMoney(PAY_TODAY)} Now` : "Enter Eligible Credit Card to Continue";
     return `
       <div class="bottom-cta">
         ${message ? `<span class="cta-helper">${message}</span>` : ""}
-        ${!message && !ready && hasCardDetection() ? `<span class="cta-helper">Complete card details to continue.</span>` : ""}
-        ${!message ? `<span class="cta-helper fee-helper">Includes ${formatMoney(PROCESSING_FEE)} bank processing fee.</span>` : ""}
+        <span class="cta-helper fee-helper">Includes ${formatMoney(PROCESSING_FEE)} bank processing fee.</span>
         <button class="primary-button" type="button" data-action="start-pay4" ${disabled ? "disabled" : ""}>${buttonLabel}</button>
       </div>
     `;
@@ -1048,7 +1076,7 @@ function demoControls() {
           ...state,
           merchant: MERCHANT,
           orderAmount: formatMoney(ORDER_AMOUNT),
-          split: `${formatMoney(SPLIT_AMOUNT)} x 4 Payments`,
+          pay4Framing: `Pay ${formatMoney(PAY_TODAY)} today, then 3 monthly payments of ${formatMoney(SPLIT_AMOUNT)}`,
           payToday: formatMoney(PAY_TODAY)
         }, null, 2))}</pre>
       </details>
@@ -1190,6 +1218,9 @@ function handleAppChange(event) {
   const target = event.target;
   if (target.dataset.action === "toggle-consent") {
     updateState({ consent: target.checked ? "true" : "false", method: "pay4" });
+  }
+  if (target.dataset.action === "toggle-save-card") {
+    formState.saveCard = target.checked;
   }
   if (target.dataset.action === "select-control") {
     setControl(target.dataset.key, target.value);

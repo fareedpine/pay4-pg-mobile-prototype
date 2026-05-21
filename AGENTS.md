@@ -19,7 +19,7 @@ Use:
 - Demo merchant: Stanley Living
 - Product: Handwoven Wool Carpet
 - Order amount: ₹40,000
-- Pay4 split: ₹10,000 × 4 Payments
+- Pay4 amount framing: Pay ₹10,099 today, then 3 monthly payments of ₹10,000
 - Processing fee: ₹99
 - Pay today: ₹10,099
 - Funding instrument: eligible credit card
@@ -40,7 +40,7 @@ UI behavior:
 
 - Pay4 appears near the top, but not overly expanded.
 - Pay4 row is clean and restrained.
-- Shows Pay4, By Pine Labs, ₹10,000 × 4 Payments, and NEW badge.
+- Shows Pay4, By Pine Labs, Pay ₹10,099 today, then 3 monthly payments of ₹10,000, and NEW badge.
 - No large affordability banner.
 - Trust/support copy is subtle.
 - User taps View Pay4 Details to enter Pay4 detail.
@@ -57,7 +57,7 @@ UI behavior:
 
 - Pay4 is first and visually highlighted.
 - Pay4 is expanded by default on checkout landing.
-- Shows Pay Today ₹10,099 and ₹10,000 × 4 Payments.
+- Shows Pay ₹10,099 today and then 3 monthly payments of ₹10,000.
 - Shows benefit strip: Interest-free, No hidden charges, Safe & secure, Trusted by Pine Labs.
 - Checkout landing CTA is Continue with Pay4.
 - Final Pay4 detail CTA remains Pay ₹10,099 Now.
@@ -77,7 +77,7 @@ UI behavior:
 - Payment modes look more equal.
 - Pay4 is visible and standalone, but less hero-like than Variant B.
 - Order: UPI, Cards, EMI, Pay4, Net Banking, Wallets.
-- Pay4 has NEW badge and ₹10,000 × 4 Payments cue.
+- Pay4 has NEW badge and a Pay ₹10,099 today plus 3 monthly payments cue.
 - No default expanded hero treatment.
 
 What it tests: Whether Pay4 works when presented as one payment mode among others.
@@ -172,7 +172,7 @@ Do not regress:
 3. Card Number accepts numbers only, max 16 digits, and does not reset while typing.
 4. Expiry accepts numbers only and auto-formats MM/YY.
 5. CVV accepts numbers only, max 3 digits.
-6. CTA enables only when required fields are valid and consent is checked.
+6. CTA enables only when required fields are valid and required Pay4 terms consent is checked.
 7. Detected Card does not appear before valid card entry.
 8. Repeat saved-card flow has Use Another Card.
 9. Use Another Card opens card form and validates correctly.
@@ -185,20 +185,21 @@ Do not regress:
 
 1. Select Pay4.
 2. See concise Pay4 explanation.
-3. See ₹10,000 × 4 Payments.
-4. See Pay Today ₹10,099.
+3. See Pay ₹10,099 today.
+4. See then 3 monthly payments of ₹10,000.
 5. See accepted issuer chips as informational content.
 6. Enter eligible credit card details.
-7. Accept consent/terms.
-8. CTA: Pay ₹10,099 Now.
-9. Simulated processing/authentication.
-10. Success or failure.
+7. Optionally save the card for faster Pay4 checkout next time.
+8. Accept required Pay4 terms consent.
+9. CTA: Pay ₹10,099 Now.
+10. Simulated processing/authentication.
+11. Success or failure.
 
 ## Repeat Pay4 Journey
 
 1. Select Pay4.
 2. See saved HDFC Bank Credit Card ending 1234.
-3. See ₹10,000 × 4 Payments.
+3. See Pay ₹10,099 today, then 3 monthly payments of ₹10,000.
 4. CTA: Pay ₹10,099 Now.
 5. Option: Use Another Card.
 6. Simulated processing/authentication.

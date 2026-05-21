@@ -18,7 +18,7 @@ Define shopper, merchant, issuer/bank partner, ops/support, settlement/finance, 
 
 ## Customer journey
 
-Describe first-time Pay4 selection, issuer information, card entry, consent, authentication, success, and fallback.
+Describe first-time Pay4 selection, issuer information, card entry, optional save-card consent, required Pay4 terms consent, authentication, success, and fallback.
 
 ## Merchant journey
 
@@ -34,7 +34,7 @@ Define Pay4 selection, pricing display, card authentication, bank booking, merch
 
 ## Repeat user flow
 
-Define saved-card detection, preselection, Use Another Card, consent, and repeat-user eligibility.
+Define saved-card detection, preselection, Use Another Card, optional save-card consent, required Pay4 terms consent, and repeat-user eligibility.
 
 ## Failure states
 
@@ -67,4 +67,3 @@ Maintain unresolved PRD questions here, linked back to `CONTEXT.md`.
 ## Launch criteria
 
 Define product, engineering, issuer, legal, compliance, ops, finance, support, GTM, and pilot readiness gates.
-

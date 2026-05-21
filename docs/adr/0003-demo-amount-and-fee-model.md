@@ -10,11 +10,11 @@ The prototype needs a simple, credible amount model for CEO/stakeholder review. 
 
 ## Decision
 
-Current prototype and demo use ₹40,000 order, ₹10,000 × 4 payments, ₹99 bank processing fee, ₹10,099 Pay Today.
+Current prototype and demo use a ₹40,000 order framed as Pay ₹10,099 today, then 3 monthly payments of ₹10,000. Pay Today is ₹10,000 first payment + ₹99 bank processing fee.
 
 ## Consequences
 
-- All prototype, brochure, and demo collateral should use ₹40,000 / ₹10,000 × 4 / ₹10,099 unless explicitly exploring another case.
+- All prototype, brochure, and demo collateral should use ₹40,000 / Pay ₹10,099 today / then 3 monthly payments of ₹10,000 unless explicitly exploring another case.
 - Pay Today copy must explain that ₹10,099 includes a ₹99 bank processing fee.
 - Success copy must distinguish the first payment from the total paid today.
 - Production PRD must still define whether the processing fee is fixed, issuer-specific, amount-based, merchant-specific, or program-specific.
@@ -24,4 +24,3 @@ Current prototype and demo use ₹40,000 order, ₹10,000 × 4 payments, ₹99 b
 - Is ₹99 the MVP default, demo-only, or issuer-specific?
 - Is the processing fee charged by issuer, merchant, Pine Labs, or another party?
 - Are taxes included in the displayed fee?
-
