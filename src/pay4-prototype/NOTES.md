@@ -66,7 +66,7 @@ This is an exploratory alternative.
 
 Hypothesis: The strongest demo story is affordability-led: Pay ₹10,099 today instead of ₹40,000 upfront.
 
-This is the main CEO demo variant for first-time users. Pay4 is first, expanded by default, and includes Pay Today ₹10,099, ₹10,000 × 4 Payments, and the trust benefit strip. It should not imply discount or savings.
+This is the main CEO demo variant for first-time users. Pay4 is first, expanded by default, and includes Pay Today ₹10,099, ₹10,000 × 4 Payments, the trust benefit strip, and Continue with Pay4 on the checkout landing. It should not imply discount or savings.
 
 This is the recommended CEO first-time affordability demo.
 
@@ -169,6 +169,7 @@ Before demo, verify:
 - Variant A, B, C, and D are visibly distinct.
 - Eligibility control behavior for eligible and ineligible states.
 - Card form validation for number, expiry, CVV, name, consent, and CTA enablement.
+- Prototype expiry format is MM/YY.
 - Repeat saved-card default path, Use Another Card, and Use Saved Card.
 - Debit, unsupported card, SBI coming soon, amount, failure/retry, and success states.
 - Product → Cart → PG checkout → Pay4 flow.

@@ -233,7 +233,10 @@ function cardNumberComplete() {
 }
 
 function expiryComplete() {
-  return /^\d{2}\/\d{4}$/.test(formState.expiry);
+  const match = formState.expiry.match(/^(\d{2})\/(\d{2})$/);
+  if (!match) return false;
+  const month = Number(match[1]);
+  return month >= 1 && month <= 12;
 }
 
 function cvvComplete() {
@@ -637,6 +640,7 @@ function paymentMethodRow(method) {
 
 function pay4MethodRow({ expanded = false, mode = "minimal" } = {}) {
   const message = pay4UnavailableMessage();
+  const rowCta = mode === "minimal" || mode === "balanced" ? "View Pay4 Details" : "";
   return `
     <button class="method-row pay4-row pay4-row-${mode} ${expanded ? "is-selected" : ""} ${message ? "is-unavailable" : ""}" type="button" data-action="open-pay4">
       ${pay4Logo("row")}
@@ -647,6 +651,7 @@ function pay4MethodRow({ expanded = false, mode = "minimal" } = {}) {
         </span>
         <small>By Pine Labs · Pay in 4 simple payments</small>
         <small class="value-cue">${formatMoney(SPLIT_AMOUNT)} × 4 Payments</small>
+        ${rowCta ? `<small class="method-cta">${rowCta}</small>` : ""}
         ${message ? `<small class="inline-error">${message}</small>` : ""}
       </span>
       <span class="method-chevron">›</span>
@@ -684,7 +689,7 @@ function offerCheckoutExpansion(message) {
         </div>
       </div>
       ${benefitStrip()}
-      <button class="secondary-button full-width" type="button" data-action="open-pay4">View Pay4 Details</button>
+      <button class="secondary-button full-width" type="button" data-action="open-pay4">Continue with Pay4</button>
     </div>
   `;
 }
@@ -797,7 +802,7 @@ function cardEntryModule() {
       <div class="field-grid">
         <label>
           <span>Expiry</span>
-          <input type="text" inputmode="numeric" autocomplete="off" placeholder="MM/YYYY" data-action="card-input" data-field="expiry" value="${formValue("expiry")}" />
+          <input type="text" inputmode="numeric" autocomplete="off" placeholder="MM/YY" data-action="card-input" data-field="expiry" value="${formValue("expiry")}" />
         </label>
         <label>
           <span>CVV</span>
@@ -1200,15 +1205,9 @@ function normalizeCardField(field, value) {
 }
 
 function normalizeExpiry(value) {
-  const digits = value.replace(/\D/g, "").slice(0, 6);
+  const digits = value.replace(/\D/g, "").slice(0, 4);
   if (digits.length <= 2) return digits;
-
-  let month = digits.slice(0, 2);
-  const monthNumber = Number(month);
-  if (month === "00") month = "01";
-  else if (monthNumber > 12) month = "12";
-
-  return `${month}/${digits.slice(2)}`;
+  return `${digits.slice(0, 2)}/${digits.slice(2)}`;
 }
 
 function refreshCardFormUi() {

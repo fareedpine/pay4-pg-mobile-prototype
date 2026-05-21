@@ -818,6 +818,11 @@ button:disabled {
   font-weight: 900;
 }
 
+.method-cta {
+  color: var(--pine-800) !important;
+  font-weight: 900;
+}
+
 .inline-error {
   color: var(--red) !important;
 }

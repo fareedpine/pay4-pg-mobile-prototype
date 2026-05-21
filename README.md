@@ -121,7 +121,7 @@ Success:
 
 Variant A, Minimal Trusted Checkout: Pay4 appears as a restrained standalone payment mode near the top. It tests whether Pay4 can work without heavy promotion.
 
-Variant B, Offer-led Pay4-first Checkout: Pay4 is first, highlighted, and expanded by default with Pay Today ₹10,099 and ₹10,000 × 4 Payments. This is the main CEO demo for first-time users.
+Variant B, Offer-led Pay4-first Checkout: Pay4 is first, highlighted, and expanded by default with Pay Today ₹10,099, ₹10,000 × 4 Payments, and Continue with Pay4 on the checkout landing. This is the main CEO demo for first-time users.
 
 Variant C, Payment-method-first Checkout: Pay4 sits inside the normal hierarchy after UPI, Cards, and EMI. It tests whether Pay4 competes fairly as one payment mode among others.
 
@@ -135,7 +135,7 @@ Before demo, verify:
 - Demo Controls are hidden by default; Debug State is collapsed.
 - Eligible demos never show ineligible card errors.
 - Ineligible demos show debit, unsupported card, SBI coming soon, or amount messages correctly.
-- Card number, expiry, CVV, name, consent, and CTA enablement work without input reset.
+- Card number, MM/YY expiry, CVV, name, consent, and CTA enablement work without input reset.
 - Repeat Pay4 shows saved HDFC card, Use Another Card, and Use Saved Card.
 - Product → Cart → PG checkout → Pay4 → Processing → Success works.
 - Failure → Retry and Change Payment Method work.

@@ -59,7 +59,8 @@ UI behavior:
 - Pay4 is expanded by default on checkout landing.
 - Shows Pay Today ₹10,099 and ₹10,000 × 4 Payments.
 - Shows benefit strip: Interest-free, No hidden charges, Safe & secure, Trusted by Pine Labs.
-- CTA is View Pay4 Details.
+- Checkout landing CTA is Continue with Pay4.
+- Final Pay4 detail CTA remains Pay ₹10,099 Now.
 
 This is not a discount offer. Do not say save or imply a discount; it is an affordability/instalment benefit.
 
@@ -169,7 +170,7 @@ Do not regress:
 1. `eligible=true` must never show ineligible card errors.
 2. `eligible=false` must show the correct ineligible reason.
 3. Card Number accepts numbers only, max 16 digits, and does not reset while typing.
-4. Expiry accepts numbers only and auto-formats MM/YYYY.
+4. Expiry accepts numbers only and auto-formats MM/YY.
 5. CVV accepts numbers only, max 3 digits.
 6. CTA enables only when required fields are valid and consent is checked.
 7. Detected Card does not appear before valid card entry.
