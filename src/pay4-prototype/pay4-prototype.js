@@ -7,15 +7,15 @@ if (window.__pay4PrototypeCleanup) {
 const ASSETS = {
   pay4: `${import.meta.env.BASE_URL}assets/pay4-logo-by-pinelabs.png`,
   stanley: new URL("./assets/stanley-living-logo.svg", import.meta.url).href,
-  hdfc: new URL("./assets/hdfc-bank-logo.svg", import.meta.url).href,
-  icici: new URL("./assets/icici-bank-logo.svg", import.meta.url).href,
-  axis: new URL("./assets/axis-bank-logo.svg", import.meta.url).href,
-  kotak: new URL("./assets/kotak-bank-logo.svg", import.meta.url).href,
-  sbi: new URL("./assets/sbi-card-logo.svg", import.meta.url).href
+  hdfc: `${import.meta.env.BASE_URL}assets/brochure-logos/hdfc-bank-logo.svg`,
+  icici: `${import.meta.env.BASE_URL}assets/brochure-logos/icici-bank-logo.svg`,
+  axis: `${import.meta.env.BASE_URL}assets/brochure-logos/axis-bank-logo.svg`,
+  kotak: `${import.meta.env.BASE_URL}assets/brochure-logos/kotak-bank-logo.svg`,
+  sbi: `${import.meta.env.BASE_URL}assets/brochure-logos/sbi-bank-logo.svg`
 };
 
 const MERCHANT = "Stanley Living";
-const PRODUCT = "Handwoven Wool Carpet";
+const PRODUCT = "Nina Motion Sofa";
 const ORDER_AMOUNT = 40000;
 const SPLIT_AMOUNT = 10000;
 const PROCESSING_FEE = 99;
@@ -48,7 +48,7 @@ const ISSUER_LOGOS = [
   { id: "icici", name: "ICICI Bank", src: ASSETS.icici },
   { id: "axis", name: "Axis Bank", src: ASSETS.axis },
   { id: "kotak", name: "Kotak", src: ASSETS.kotak },
-  { id: "sbi", name: "SBI Card", src: ASSETS.sbi, soon: true }
+  { id: "sbi", name: "SBI", src: ASSETS.sbi, soon: true }
 ];
 
 const PAYMENT_METHODS = [
@@ -407,14 +407,19 @@ function merchantContent() {
 function merchantAppHeader() {
   return `
     <header class="merchant-app-header">
-      <div class="merchant-brand-lockup">
-        ${logoImage("stanley-logo", ASSETS.stanley, "Stanley Living", "Stanley Living")}
-        <div class="merchant-brand-copy">
-          <strong>Stanley Living</strong>
-          <span>Living Studio</span>
-        </div>
+      <button class="merchant-nav-icon" type="button" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+      <button class="merchant-search-icon" type="button" aria-label="Search"></button>
+      <div class="sofas-wordmark" aria-label="Sofas & More by Stanley">
+        <span>Sofas</span>
+        <strong>&amp;<small>Stanley</small></strong>
+        <span>More</span>
       </div>
-      <button class="merchant-icon-button" type="button" aria-label="Shopping bag">${lineIcon("bag")}</button>
+      <button class="merchant-login" type="button" aria-label="Log in or register">
+        ${lineIcon("user")}
+        <span>Log in / Register</span>
+      </button>
     </header>
   `;
 }
@@ -422,40 +427,47 @@ function merchantAppHeader() {
 function merchantProductScreen() {
   return `
     <section class="merchant-product">
-      <div class="product-visual premium-product-visual" aria-label="Handwoven wool carpet product preview">
-        <div class="editorial-wall"></div>
-        <div class="product-art-card">
-          <div class="product-art-meta">
-            <span>Natural Wool</span>
-            <strong>Handwoven Texture</strong>
-          </div>
-          <div class="woven-carpet">
-            <span class="weave-line line-one"></span>
-            <span class="weave-line line-two"></span>
-            <span class="weave-line line-three"></span>
-            <span class="carpet-border"></span>
-          </div>
-          <div class="carpet-fringe left"></div>
-          <div class="carpet-fringe right"></div>
+      <nav class="merchant-breadcrumb" aria-label="Breadcrumb">
+        <span>Home</span><i></i><span>Shop Products</span><i></i><span>Motion Sofas</span><i></i><strong>Nina</strong>
+      </nav>
+      <div class="product-visual sofa-product-visual" aria-label="Nina motion sofa product preview">
+        <div class="room-window"></div>
+        <div class="room-plant"><span></span><span></span><span></span></div>
+        <div class="wall-art"></div>
+        <div class="revive-mark">Revive</div>
+        <div class="sofa-hero">
+          <span class="sofa-back"></span>
+          <span class="sofa-seat"></span>
+          <span class="sofa-arm left"></span>
+          <span class="sofa-arm right"></span>
+          <span class="sofa-head"></span>
+          <span class="sofa-leg left"></span>
+          <span class="sofa-leg right"></span>
         </div>
-        <div class="material-card">
-          <span></span>
-          <div>
-            <strong>Warm Sand</strong>
-            <small>8 x 10 ft</small>
-          </div>
-        </div>
+        <div class="floor-rug"></div>
+      </div>
+      <div class="merchant-gallery">
+        <button class="gallery-thumb is-active" type="button" aria-label="Product image 1"><span class="mini-sofa"></span></button>
+        <button class="gallery-thumb" type="button" aria-label="Product image 2"><span class="mini-sofa mini-sofa-side"></span></button>
+        <button class="gallery-thumb video-thumb" type="button" aria-label="Product video"><span>▶</span></button>
+        <button class="callback-card" type="button">Request a<br />Call Back</button>
       </div>
       <div class="merchant-product-copy">
-        <span>New Collection</span>
-        <h1>Handwoven Wool Carpet</h1>
-        <p>Soft natural texture, crafted for warm living rooms and calm corners.</p>
+        <span>Motion Sofas · Nina</span>
+        <h1>Nina Motion Sofa</h1>
         <strong>${formatMoney(ORDER_AMOUNT)}</strong>
       </div>
       <div class="merchant-bottom-cta">
         <button class="secondary-button" type="button" data-action="go-cart">Add To Cart</button>
         <button class="primary-button" type="button" data-action="go-cart">Buy Now</button>
       </div>
+      <nav class="merchant-tabbar" aria-label="Sofas and More navigation">
+        <span>${lineIcon("heart")}<small>Save</small></span>
+        <span>${lineIcon("sofa")}<small>Sofa</small></span>
+        <span>${lineIcon("home")}<small>Home</small></span>
+        <span>${lineIcon("store")}<small>Store</small></span>
+        <span>${lineIcon("cart")}<small>Cart</small></span>
+      </nav>
     </section>
   `;
 }
@@ -465,10 +477,10 @@ function merchantCartScreen() {
     <section class="merchant-cart">
       <button class="back-button dark" type="button" data-action="go-product">‹ Product</button>
       <div class="cart-card">
-        <div class="cart-thumb"><div class="mini-carpet"></div></div>
+        <div class="cart-thumb"><div class="mini-sofa cart-mini-sofa"></div></div>
         <div>
           <h1>${PRODUCT}</h1>
-          <p>Natural wool · 8 x 10 ft</p>
+          <p>Sage fabric · Motion recliner</p>
           <strong>${formatMoney(ORDER_AMOUNT)}</strong>
         </div>
       </div>
@@ -825,8 +837,10 @@ function cardEntryModule() {
 function cardDetectionMarkup() {
   const card = detectedCardState();
   const error = pay4UnavailableMessage();
+  const digits = cardNumberDigits();
 
   if (error) return `<div class="inline-status is-error">${error}</div>`;
+  if (digits.length > 0 && digits.length < 16) return `<div class="inline-status is-warning">Enter a 16-digit card number.</div>`;
   if (!card) return "";
 
   const label = card.id === "eligible" ? "Eligible Credit Card" : `${card.name} Credit Card`;
@@ -874,11 +888,12 @@ function issuerLogoGrid() {
   return `
     <div class="issuer-logo-grid">
       ${ISSUER_LOGOS.map((issuer) => `
-        <div class="issuer-logo-chip issuer-${issuer.id}">
-          <span>${issuer.name}</span>
-          ${issuer.soon ? `<small class="issuer-soon">Coming Soon</small>` : ""}
+        <div class="issuer-logo-chip issuer-${issuer.id}" title="${issuer.name}">
+          <img src="${issuer.src}" alt="${issuer.name}" loading="eager" onerror="this.hidden=true;this.nextElementSibling.hidden=false" />
+          <span hidden>${issuer.name}</span>
         </div>
       `).join("")}
+      <span class="issuer-more">&amp; more coming soon</span>
       <button class="issuer-view-all" type="button" data-action="open-supported-banks">View all supported banks</button>
     </div>
   `;
@@ -896,6 +911,7 @@ function supportedBanksSheet() {
         <div class="supported-bank-list">
           ${ISSUER_LOGOS.map((issuer) => `
             <div class="supported-bank-item">
+              <img src="${issuer.src}" alt="${issuer.name}" onerror="this.hidden=true" />
               <span>${issuer.name}</span>
               ${issuer.soon ? `<small>Coming Soon</small>` : ""}
             </div>
@@ -1116,7 +1132,13 @@ function lineIcon(type) {
     shield: `<path d="M20 7 30 11v8c0 6-4 10-10 13-6-3-10-7-10-13v-8l10-4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m15 20 3 3 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>`,
     "badge-check": `<path d="m20 7 3.3 3.1 4.5-.2.2 4.5 3.1 3.3-3.1 3.3-.2 4.5-4.5-.2L20 28.5l-3.3-3.1-4.5.2-.2-4.5-3.1-3.3 3.1-3.3.2-4.5 4.5.2L20 7Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m15.5 19.5 2.8 2.8 6.2-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>`,
     trusted: `<path d="M12 14h16l-2 16H14l-2-16Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M15 14a5 5 0 0 1 10 0M16 23l3 3 6-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>`,
-    bag: `<path d="M12 15h16l-1 16H13L12 15Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M16 15a4 4 0 0 1 8 0" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>`
+    bag: `<path d="M12 15h16l-1 16H13L12 15Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M16 15a4 4 0 0 1 8 0" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>`,
+    user: `<circle cx="20" cy="14" r="5" stroke="currentColor" stroke-width="2.2"/><path d="M10 31c1.8-6 18.2-6 20 0" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>`,
+    heart: `<path d="M20 31S8 24.2 8 15.8C8 11.6 10.8 9 14.3 9c2.3 0 4.2 1.2 5.7 3 1.5-1.8 3.4-3 5.7-3C29.2 9 32 11.6 32 15.8 32 24.2 20 31 20 31Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>`,
+    sofa: `<path d="M11 20v-3c0-2.8 2.2-5 5-5h8c2.8 0 5 2.2 5 5v3" stroke="currentColor" stroke-width="2.2"/><path d="M8 21h24v8H8zM11 29v3M29 29v3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>`,
+    home: `<path d="M8 19 20 9l12 10M11 18v14h18V18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 32v-8h6v8" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>`,
+    store: `<path d="M9 16h22l-2-6H11l-2 6ZM12 16v16h16V16M16 32v-8h8v8" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>`,
+    cart: `<path d="M9 10h3l3 15h12l3-10H14M17 31h.1M27 31h.1" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>`
   };
   return `<span class="line-icon icon-${type}"><svg ${common}>${icons[type] || icons.cards}</svg></span>`;
 }
