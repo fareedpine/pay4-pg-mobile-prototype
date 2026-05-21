@@ -2,11 +2,12 @@ const app = document.querySelector("#brochure-app");
 
 const ASSETS = {
   pay4: `${import.meta.env.BASE_URL}assets/pay4-logo-by-pinelabs.png`,
-  hdfc: new URL("./assets/hdfc-bank-logo.svg", import.meta.url).href,
-  icici: new URL("./assets/icici-bank-logo.svg", import.meta.url).href,
-  axis: new URL("./assets/axis-bank-logo.svg", import.meta.url).href,
-  kotak: new URL("./assets/kotak-bank-logo.svg", import.meta.url).href,
-  sbi: new URL("./assets/sbi-card-logo.svg", import.meta.url).href
+  pineLabs: `${import.meta.env.BASE_URL}assets/brochure-logos/pinelabs-logo.svg`,
+  hdfc: `${import.meta.env.BASE_URL}assets/brochure-logos/hdfc-bank-logo.svg`,
+  icici: `${import.meta.env.BASE_URL}assets/brochure-logos/icici-bank-logo.svg`,
+  axis: `${import.meta.env.BASE_URL}assets/brochure-logos/axis-bank-logo.svg`,
+  kotak: `${import.meta.env.BASE_URL}assets/brochure-logos/kotak-bank-logo.webp`,
+  sbi: `${import.meta.env.BASE_URL}assets/brochure-logos/sbi-card-logo.svg`
 };
 
 const issuers = [
@@ -107,7 +108,7 @@ function pay4Logo(className = "pay4-logo") {
 }
 
 function pineLabsWordmark() {
-  return `<span class="pine-wordmark">Pine Labs</span>`;
+  return `<img class="pine-brand-logo" src="${ASSETS.pineLabs}" alt="Pine Labs" />`;
 }
 
 function pageShell(number, kicker, title, content, modifier = "") {
@@ -191,9 +192,10 @@ function checkoutMockup() {
           <div>
             <span>Pay Today</span>
             <strong>₹10,099</strong>
+            <small>Includes ₹99 bank processing fee</small>
           </div>
         </div>
-        ${issuerLogoRow({ compact: true })}
+        ${issuerLogoRow()}
       </div>
     </aside>
   `;
@@ -369,11 +371,15 @@ function pay4ModuleMockup() {
         <div>
           <span>Pay Today</span>
           <strong>₹10,099</strong>
+          <small>Includes ₹99 bank processing fee</small>
         </div>
       </div>
       ${issuerLogoRow({ compact: true })}
       <div class="card-preview">
-        <span>Add eligible credit card</span>
+        <div>
+          <span>Add eligible credit card</span>
+          <small>Pay today includes ₹99 bank processing fee</small>
+        </div>
         <button type="button">Pay ₹10,099 now</button>
       </div>
     </aside>
@@ -422,11 +428,13 @@ function pageThree() {
         <p>Pay4 appears as a standalone online payment mode, then moves customers through a familiar card-funded authentication flow.</p>
       </div>
       ${journeyDiagram()}
-      <div class="journey-layout">
+      <div class="page3-showcase">
         ${pay4ModuleMockup()}
-        ${categoryGrid()}
       </div>
-      ${integrationPanel()}
+      <div class="category-integration-grid">
+        ${categoryGrid()}
+        ${integrationPanel()}
+      </div>
     `,
     "journey-page"
   );

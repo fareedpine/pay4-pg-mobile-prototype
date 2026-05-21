@@ -88,11 +88,12 @@ button {
   height: auto;
 }
 
-.pine-wordmark {
-  color: var(--pine-900);
-  font-size: 15px;
-  font-weight: 950;
-  letter-spacing: -0.01em;
+.pine-brand-logo {
+  display: block;
+  width: 118px;
+  max-height: 31px;
+  object-fit: contain;
+  object-position: left center;
 }
 
 .nav-links {
@@ -442,6 +443,14 @@ p {
   line-height: 1.08;
 }
 
+.amount-pair small {
+  margin-top: -1px;
+  color: var(--muted);
+  font-size: 9.5px;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
 .compact-amounts strong {
   font-size: 15px;
 }
@@ -473,7 +482,7 @@ p {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .issuer-logo-row:has(.issuer-view-all) {
@@ -485,51 +494,68 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 34px;
+  height: 42px;
   min-width: 0;
-  padding: 2px 6px;
-  border: 1px solid rgba(223, 232, 228, 0.7);
-  border-radius: 12px;
-  background: #fbfdfc;
+  padding: 0 5px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
 }
 
 .issuer-logo-pill img {
   display: block;
   width: auto;
-  max-width: 74px;
+  max-width: 86px;
   height: auto;
-  max-height: 24px;
+  max-height: 28px;
   object-fit: contain;
 }
 
 .issuer-panel-compact .issuer-logo-pill {
-  height: 30px;
-  padding: 2px 4px;
-  border-color: rgba(223, 232, 228, 0.58);
+  height: 34px;
+  padding: 0 2px;
 }
 
 .issuer-panel-compact .issuer-logo-pill img {
-  max-width: 58px;
-  max-height: 20px;
+  max-width: 67px;
+  max-height: 23px;
 }
 
 .issuer-hdfc img {
+  max-width: 88px;
+}
+
+.issuer-icici img {
+  max-height: 30px;
+}
+
+.issuer-axis img {
+  max-width: 92px;
+}
+
+.issuer-kotak img {
+  max-width: 82px;
+  max-height: 26px;
+}
+
+.issuer-sbi img {
   max-width: 78px;
+  max-height: 23px;
 }
 
 .issuer-sbi small {
   position: absolute;
-  right: 3px;
-  bottom: -7px;
+  right: -2px;
+  bottom: -6px;
   display: inline-flex;
   align-items: center;
-  height: 14px;
+  height: 15px;
   padding: 0 5px;
   border: 1px solid #b9ddc9;
   border-radius: 999px;
   color: #267052;
   background: #f2fbf6;
-  font-size: 7.5px;
+  font-size: 7.8px;
   font-weight: 850;
   white-space: nowrap;
 }
@@ -824,17 +850,94 @@ p {
   font-size: 10.6px;
 }
 
-.journey-layout {
+.journey-layout,
+.page3-showcase,
+.category-integration-grid {
   display: grid;
-  grid-template-columns: 380px 1fr;
   gap: 18px;
+  align-items: start;
   margin-top: 18px;
+}
+
+.journey-layout {
+  grid-template-columns: 380px 1fr;
+}
+
+.page3-showcase {
+  grid-template-columns: 1fr;
+  margin-top: 15px;
+}
+
+.category-integration-grid {
+  grid-template-columns: 0.47fr 0.53fr;
+  margin-top: 14px;
+}
+
+.journey-right-rail {
+  display: grid;
+  gap: 14px;
 }
 
 .pay4-module {
   align-content: start;
   padding: 15px;
   background: #ffffff;
+}
+
+.page3-showcase .pay4-module {
+  grid-template-columns: 0.46fr 0.54fr;
+  column-gap: 18px;
+  row-gap: 10px;
+}
+
+.page3-showcase .checkout-pay4-head,
+.page3-showcase .pay4-module > p,
+.page3-showcase .module-meta {
+  grid-column: 1;
+}
+
+.page3-showcase .amount-pair {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  align-self: center;
+}
+
+.page3-showcase .issuer-panel,
+.page3-showcase .card-preview {
+  grid-column: 1 / -1;
+}
+
+.page3-showcase .issuer-panel-compact {
+  padding: 13px 15px 16px;
+}
+
+.page3-showcase .issuer-panel-compact .issuer-logo-row {
+  gap: 14px;
+}
+
+.page3-showcase .issuer-panel-compact .issuer-logo-pill {
+  height: 46px;
+}
+
+.page3-showcase .issuer-panel-compact .issuer-logo-pill img {
+  max-width: 118px;
+  max-height: 31px;
+}
+
+.page3-showcase .issuer-panel-compact .issuer-hdfc img {
+  max-width: 128px;
+}
+
+.page3-showcase .issuer-panel-compact .issuer-axis img {
+  max-width: 120px;
+}
+
+.page3-showcase .issuer-panel-compact .issuer-kotak img {
+  max-width: 104px;
+}
+
+.page3-showcase .issuer-panel-compact .issuer-sbi img {
+  max-width: 112px;
 }
 
 .module-meta {
@@ -855,11 +958,21 @@ p {
 }
 
 .card-preview span {
+  display: block;
   color: var(--pine-900);
   font-size: 11px;
   font-weight: 950;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.card-preview small {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 9.5px;
+  font-weight: 800;
+  line-height: 1.2;
 }
 
 .card-preview button {
@@ -875,6 +988,8 @@ p {
 
 .category-panel {
   padding: 16px;
+  box-shadow: none;
+  height: 100%;
 }
 
 .section-headline {
@@ -894,11 +1009,11 @@ p {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 9px;
-  margin-top: 14px;
+  margin-top: 12px;
 }
 
 .category-card {
-  padding: 10px;
+  padding: 10px 11px;
   background: #ffffff;
 }
 
@@ -913,8 +1028,9 @@ p {
 .integration-panel {
   display: grid;
   gap: 13px;
-  margin-top: 18px;
+  margin-top: 0;
   padding: 16px;
+  height: 100%;
 }
 
 .integration-topline {
@@ -954,6 +1070,10 @@ p {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 8px;
+}
+
+.category-integration-grid .integration-flow {
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .integration-flow span {
@@ -1304,6 +1424,8 @@ p {
   .emi-comparison,
   .journey-title,
   .journey-layout,
+  .page3-showcase .pay4-module,
+  .category-integration-grid,
   .commercial-title,
   .commercial-grid,
   .ops-risk-grid,
