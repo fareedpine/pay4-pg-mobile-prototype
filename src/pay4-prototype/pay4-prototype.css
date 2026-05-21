@@ -1155,7 +1155,8 @@ button:disabled {
 }
 
 .pay4-row {
-  grid-template-columns: 58px minmax(0, 1fr) auto;
+  grid-template-columns: 82px minmax(0, 1fr) auto;
+  gap: 10px;
 }
 
 .checkout-variant-a .method-list {
@@ -1220,11 +1221,11 @@ button:disabled {
 .method-copy {
   display: grid;
   min-width: 0;
-  gap: 3px;
+  gap: 4px;
 }
 
 .method-copy strong {
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.2;
 }
 
@@ -1232,6 +1233,7 @@ button:disabled {
   color: var(--muted);
   font-size: 12px;
   line-height: 1.25;
+  font-weight: 550;
 }
 
 .method-title-line {
@@ -1252,12 +1254,14 @@ button:disabled {
 
 .value-cue {
   color: var(--pine-700) !important;
-  font-weight: 900;
+  font-size: 13px !important;
+  font-weight: 850 !important;
 }
 
 .value-cue-secondary {
   color: #52675f !important;
-  font-weight: 750;
+  font-size: 12.5px !important;
+  font-weight: 650 !important;
 }
 
 .method-cta {
@@ -1294,11 +1298,32 @@ button:disabled {
 }
 
 .pay4-logo-row {
-  width: 56px;
-  height: 36px;
+  width: 74px;
+  height: 50px;
   border: 1px solid #dbe8e2;
   border-radius: 12px;
   background: #ffffff;
+}
+
+.pay4-row-brand {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+}
+
+.pay4-row-badge {
+  display: inline-grid;
+  place-items: center;
+  min-width: 44px;
+  height: 21px;
+  padding: 0 8px;
+  border: 1px solid #cfe7db;
+  border-radius: 999px;
+  color: var(--pine-700);
+  background: var(--pine-100);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
 }
 
 .pay4-logo-header {
@@ -1317,7 +1342,7 @@ button:disabled {
 .inline-pay4 {
   display: grid;
   gap: 8px;
-  padding: 0 14px 12px 68px;
+  padding: 0 14px 12px;
   background: var(--pine-50);
 }
 
@@ -1327,7 +1352,7 @@ button:disabled {
 
 .inline-pay4-offer {
   gap: 10px;
-  padding: 0 14px 14px 68px;
+  padding: 0 14px 14px;
   border-top: 1px solid rgba(207, 225, 217, 0.7);
   background:
     linear-gradient(180deg, #f3fbf8 0%, #ffffff 100%);
@@ -1335,7 +1360,7 @@ button:disabled {
 
 .inline-pay4-repeat {
   gap: 10px;
-  padding: 0 14px 14px 68px;
+  padding: 0 14px 14px;
   background: #f3fbf8;
 }
 
@@ -1355,29 +1380,29 @@ button:disabled {
 .affordability-callout div {
   display: grid;
   gap: 5px;
-  min-height: 58px;
-  padding: 10px 12px;
+  min-height: 76px;
+  padding: 12px 14px;
   border: 1px solid #d7e7df;
-  border-radius: 12px;
+  border-radius: 16px;
   background: #ffffff;
 }
 
 .affordability-callout span {
   color: var(--muted);
-  font-size: 11px;
-  font-weight: 900;
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .affordability-callout small {
   color: #49615a;
-  font-size: 10px;
-  font-weight: 750;
+  font-size: 11px;
+  font-weight: 600;
   line-height: 1.2;
 }
 
 .affordability-callout strong {
   color: var(--pine-800);
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.1;
 }
 

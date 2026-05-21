@@ -661,11 +661,13 @@ function pay4MethodRow({ expanded = false, mode = "minimal" } = {}) {
   const rowCta = mode === "minimal" || mode === "balanced" ? "View Pay4 Details" : "";
   return `
     <button class="method-row pay4-row pay4-row-${mode} ${expanded ? "is-selected" : ""} ${message ? "is-unavailable" : ""}" type="button" data-action="open-pay4">
-      ${pay4Logo("row")}
+      <span class="pay4-row-brand">
+        ${pay4Logo("row")}
+        <span class="pay4-row-badge">NEW</span>
+      </span>
       <span class="method-copy">
         <span class="method-title-line">
           <strong>Pay4</strong>
-          <em>NEW</em>
         </span>
         <small>By Pine Labs · Pay in 4 simple payments</small>
         <small class="value-cue">Pay ${formatMoney(PAY_TODAY)} Today</small>
