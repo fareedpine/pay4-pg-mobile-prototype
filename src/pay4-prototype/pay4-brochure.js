@@ -19,10 +19,10 @@ const issuers = [
 ];
 
 const customerBenefits = [
-  ["Smaller upfront payment", "Turns a ₹40,000 decision into a ₹10,000 today decision."],
-  ["Simple structure", "No tenure maze. One simple construct: Pay in 4."],
+  ["Smaller upfront payment", "Turns a ₹40,000 decision into ₹10,099 today, then ₹10,000/month for 3 months."],
+  ["Simple structure", "No tenure maze. One clear first payment followed by 3 monthly bank collections."],
   ["Credit-card funded", "Customers use eligible credit cards from participating issuers."],
-  ["Transparent checkout", "Schedule, today’s amount and processing fee are shown before authentication."]
+  ["Transparent checkout", "Today’s amount, bank processing fee and future monthly schedule are shown before authentication."]
 ];
 
 const merchantBenefits = [
@@ -36,7 +36,7 @@ const merchantBenefits = [
 
 const journeySteps = [
   ["Customer reaches checkout", "Pay4 appears alongside UPI, Cards, Net Banking and Wallets."],
-  ["Customer selects Pay4", "A ₹40,000 purchase is reframed as ₹10,000 × 4 payments."],
+  ["Customer selects Pay4", "A ₹40,000 purchase is reframed as ₹10,099 today, then ₹10,000/month for 3 months."],
   ["Customer chooses card", "Saved eligible card or new eligible credit card inside Pay4."],
   ["Customer authenticates", "Standard card authentication with the issuer bank."],
   ["Merchant gets paid", "Order is paid for the full value; bank manages future payments."]
@@ -55,7 +55,7 @@ const categories = [
 
 const integrationOptions = [
   ["Hosted Checkout", "Enable Pay4 as a payment mode for merchants already on Pine Labs hosted checkout."],
-  ["Affordability Widget", "Surface Pay ₹10,000 × 4 with Pay4 on product pages, cart pages and checkout."],
+  ["Affordability Widget", "Surface Pay ₹10,099 today, then ₹10,000/month for 3 months on product pages, cart pages and checkout."],
   ["Checkout API", "Allow large merchants to render Pay4 eligibility and pricing natively."]
 ];
 
@@ -69,7 +69,7 @@ const integrationFlow = [
 ];
 
 const partyModel = [
-  ["Customer", "Pays in 4 using an eligible credit card. Issuer-specific processing fee may apply."],
+  ["Customer", "Pays today, then 3 monthly payments using an eligible credit card. Issuer-specific processing fee may apply."],
   ["Merchant", "Sees one Pay4 charge and receives upfront settlement net of Pay4 commercials."],
   ["Issuer Bank", "Manages card eligibility, repayment schedule, processing fee and future collections."],
   ["Pine Labs", "Orchestrates checkout, issuer integration, pricing, settlement and reconciliation."]
@@ -182,16 +182,17 @@ function checkoutMockup() {
           ${pay4Logo("mock-pay4-logo")}
           <span>NEW</span>
         </div>
-        <p>Pay one-fourth now and the rest over the next 3 months.</p>
+        <p>Pay ₹10,099 today, then ₹10,000/month for 3 months.</p>
         <div class="amount-pair">
-          <div>
-            <span>Pay in 4 Payments</span>
-            <strong>₹10,000 × 4 months</strong>
-          </div>
           <div>
             <span>Pay Today</span>
             <strong>₹10,099</strong>
-            <small>Includes ₹99 bank processing fee</small>
+            <small>₹10,000 first payment + ₹99 bank processing fee</small>
+          </div>
+          <div>
+            <span>Later</span>
+            <strong>₹10,000/month × 3</strong>
+            <small>Collected by your bank</small>
           </div>
         </div>
         ${issuerLogoRow({ compact: true, showMore: false })}
@@ -202,7 +203,7 @@ function checkoutMockup() {
 
 function systemModel() {
   const cards = [
-    ["01", "Customer", "Pays one-fourth today and the rest over the next 3 months using an eligible credit card."],
+    ["01", "Customer", "Pays ₹10,099 today, then ₹10,000/month for 3 months using an eligible credit card."],
     ["02", "Merchant", "Receives full order value upfront, net of Pay4 commercial charges."],
     ["03", "Issuer Bank", "Manages card eligibility, repayment schedule, processing fee and future collections."]
   ];
@@ -257,7 +258,7 @@ function emiComparison() {
     <section class="emi-comparison">
       <div class="comparison-title">
         <span class="eyebrow">Pay4 vs Traditional EMI</span>
-        <p>Instead of multiple tenures, hidden offer rules and issuer-by-issuer discovery, Pay4 presents one simple construct: Pay in 4.</p>
+        <p>Instead of multiple tenures, hidden offer rules and issuer-by-issuer discovery, Pay4 presents one simple construct: pay today, then 3 monthly payments.</p>
       </div>
       <div class="comparison-columns">
         <article>
@@ -274,7 +275,7 @@ function emiComparison() {
           <h3>Pay4</h3>
           <ul>
             <li>Always-on payment mode at checkout</li>
-            <li>One simple construct: Pay in 4</li>
+            <li>One simple construct: today + 3 monthly payments</li>
             <li>Visible for enabled merchants</li>
             <li>Usable by customers with eligible credit cards from participating issuers</li>
             <li>No Pine Labs underwriting journey</li>
@@ -305,7 +306,7 @@ function pageTwo() {
           <div class="arrow">→</div>
           <div>
             <span>After</span>
-            <strong>Pay ₹10,000 today + 3 monthly payments</strong>
+            <strong>Pay ₹10,099 today + ₹10,000/month × 3</strong>
           </div>
         </div>
       </div>
@@ -357,20 +358,21 @@ function pay4ModuleMockup() {
         ${pay4Logo("mock-pay4-logo")}
         <span>NEW</span>
       </div>
-      <p>Pay one-fourth now and the rest over the next 3 months.</p>
+      <p>Pay ₹10,099 today, then ₹10,000/month for 3 months.</p>
       <div class="module-meta">
         <span>Credit cards only</span>
         <span>Order-level financing</span>
       </div>
       <div class="amount-pair compact-amounts">
         <div>
-          <span>Pay in 4 Payments</span>
-          <strong>₹10,000 × 4</strong>
-        </div>
-        <div>
           <span>Pay Today</span>
           <strong>₹10,099</strong>
-          <small>Includes ₹99 bank processing fee</small>
+          <small>₹10,000 first payment + ₹99 bank processing fee</small>
+        </div>
+        <div>
+          <span>Later</span>
+          <strong>₹10,000/month × 3</strong>
+          <small>Collected by your bank</small>
         </div>
       </div>
       ${issuerLogoRow({ showMore: true })}
