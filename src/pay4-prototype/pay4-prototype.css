@@ -201,47 +201,39 @@ button:disabled {
   transform-origin: center;
 }
 
-.sofas-wordmark {
-  display: inline-flex;
+.merchant-stanley-mark {
+  display: flex;
   align-items: center;
   justify-content: center;
   min-width: 0;
-  color: #073b74;
+  gap: 8px;
+}
+
+.merchant-header-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 42px;
+  flex: 0 0 auto;
+}
+
+.merchant-header-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.merchant-stanley-mark > strong {
+  min-width: 0;
+  overflow: hidden;
+  color: #121212;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 21px;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  line-height: 1;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.sofas-wordmark strong {
-  position: relative;
-  display: inline-grid;
-  place-items: center;
-  width: 39px;
-  height: 39px;
-  margin: 0 5px;
-  border: 3px solid #f37a22;
-  color: #ffffff;
-  background: #0a4d8e;
-  font-size: 26px;
+  font-size: 18px;
   font-weight: 700;
-}
-
-.sofas-wordmark small {
-  position: absolute;
-  bottom: 2px;
-  left: 0;
-  right: 0;
-  color: #ffb06f;
-  font-family: Arial, sans-serif;
-  font-size: 6px;
-  font-weight: 900;
-  letter-spacing: 0.02em;
-  text-align: center;
-  text-transform: uppercase;
+  line-height: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .merchant-login {
@@ -345,9 +337,16 @@ button:disabled {
 
 .sofa-product-visual {
   height: 360px;
-  background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.3), rgba(250, 250, 247, 0.1)),
-    linear-gradient(180deg, #f4f2ed 0 66%, #e8dfd2 66% 100%);
+  background: #eee6da;
+}
+
+.sofa-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 47% 55%;
 }
 
 .room-window {
@@ -408,14 +407,17 @@ button:disabled {
 
 .revive-mark {
   position: absolute;
-  right: 28px;
-  top: 80px;
+  right: 18px;
+  top: 74px;
+  padding: 4px 8px;
+  border-radius: 999px;
   color: #121212;
-  font-size: 16px;
+  background: rgba(255, 255, 255, 0.78);
+  font-size: 13px;
   font-weight: 900;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  transform: rotate(-20deg);
+  transform: rotate(-15deg);
 }
 
 .floor-rug {
@@ -756,6 +758,22 @@ button:disabled {
   overflow: hidden;
 }
 
+.gallery-thumb img,
+.cart-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-thumb:nth-child(1) img {
+  object-position: 47% 55%;
+}
+
+.gallery-thumb:nth-child(2) img {
+  object-position: 62% 58%;
+}
+
 .gallery-thumb.is-active {
   border-bottom: 4px solid #0a4d8e;
 }
@@ -763,12 +781,15 @@ button:disabled {
 .video-thumb {
   display: grid;
   place-items: center;
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0.16)),
-    linear-gradient(135deg, #e8dfd2, #80684f);
+  background: #9c8b7d;
+}
+
+.video-thumb img {
+  filter: brightness(0.72);
 }
 
 .video-thumb span {
+  position: absolute;
   display: inline-grid;
   place-items: center;
   width: 38px;
@@ -845,6 +866,10 @@ button:disabled {
   border-radius: 14px;
   background: #efe2d1;
   overflow: hidden;
+}
+
+.cart-thumb img {
+  object-position: 50% 58%;
 }
 
 .mini-carpet {

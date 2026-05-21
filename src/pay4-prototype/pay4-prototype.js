@@ -6,6 +6,7 @@ if (window.__pay4PrototypeCleanup) {
 
 const ASSETS = {
   pay4: `${import.meta.env.BASE_URL}assets/pay4-logo-by-pinelabs.png`,
+  sofa: `${import.meta.env.BASE_URL}assets/prototype/stanley-sofa-product.jpg`,
   stanley: new URL("./assets/stanley-living-logo.svg", import.meta.url).href,
   hdfc: `${import.meta.env.BASE_URL}assets/brochure-logos/hdfc-bank-logo.svg`,
   icici: `${import.meta.env.BASE_URL}assets/brochure-logos/icici-bank-logo.svg`,
@@ -411,10 +412,9 @@ function merchantAppHeader() {
         <span></span><span></span>
       </button>
       <button class="merchant-search-icon" type="button" aria-label="Search"></button>
-      <div class="sofas-wordmark" aria-label="Sofas & More by Stanley">
-        <span>Sofas</span>
-        <strong>&amp;<small>Stanley</small></strong>
-        <span>More</span>
+      <div class="merchant-stanley-mark" aria-label="Stanley Living">
+        ${logoImage("merchant-header-logo", ASSETS.stanley, "Stanley Living", "Stanley Living")}
+        <strong>Stanley Living</strong>
       </div>
       <button class="merchant-login" type="button" aria-label="Log in or register">
         ${lineIcon("user")}
@@ -431,25 +431,13 @@ function merchantProductScreen() {
         <span>Home</span><i></i><span>Shop Products</span><i></i><span>Motion Sofas</span><i></i><strong>Nina</strong>
       </nav>
       <div class="product-visual sofa-product-visual" aria-label="Nina motion sofa product preview">
-        <div class="room-window"></div>
-        <div class="room-plant"><span></span><span></span><span></span></div>
-        <div class="wall-art"></div>
+        <img class="sofa-photo" src="${ASSETS.sofa}" alt="Green sofa in a premium living room" />
         <div class="revive-mark">Revive</div>
-        <div class="sofa-hero">
-          <span class="sofa-back"></span>
-          <span class="sofa-seat"></span>
-          <span class="sofa-arm left"></span>
-          <span class="sofa-arm right"></span>
-          <span class="sofa-head"></span>
-          <span class="sofa-leg left"></span>
-          <span class="sofa-leg right"></span>
-        </div>
-        <div class="floor-rug"></div>
       </div>
       <div class="merchant-gallery">
-        <button class="gallery-thumb is-active" type="button" aria-label="Product image 1"><span class="mini-sofa"></span></button>
-        <button class="gallery-thumb" type="button" aria-label="Product image 2"><span class="mini-sofa mini-sofa-side"></span></button>
-        <button class="gallery-thumb video-thumb" type="button" aria-label="Product video"><span>▶</span></button>
+        <button class="gallery-thumb is-active" type="button" aria-label="Product image 1"><img src="${ASSETS.sofa}" alt="" /></button>
+        <button class="gallery-thumb" type="button" aria-label="Product image 2"><img src="${ASSETS.sofa}" alt="" /></button>
+        <button class="gallery-thumb video-thumb" type="button" aria-label="Product video"><img src="${ASSETS.sofa}" alt="" /><span>▶</span></button>
         <button class="callback-card" type="button">Request a<br />Call Back</button>
       </div>
       <div class="merchant-product-copy">
@@ -461,7 +449,7 @@ function merchantProductScreen() {
         <button class="secondary-button" type="button" data-action="go-cart">Add To Cart</button>
         <button class="primary-button" type="button" data-action="go-cart">Buy Now</button>
       </div>
-      <nav class="merchant-tabbar" aria-label="Sofas and More navigation">
+      <nav class="merchant-tabbar" aria-label="Stanley Living navigation">
         <span>${lineIcon("heart")}<small>Save</small></span>
         <span>${lineIcon("sofa")}<small>Sofa</small></span>
         <span>${lineIcon("home")}<small>Home</small></span>
@@ -477,7 +465,7 @@ function merchantCartScreen() {
     <section class="merchant-cart">
       <button class="back-button dark" type="button" data-action="go-product">‹ Product</button>
       <div class="cart-card">
-        <div class="cart-thumb"><div class="mini-sofa cart-mini-sofa"></div></div>
+        <div class="cart-thumb"><img src="${ASSETS.sofa}" alt="Nina Motion Sofa" /></div>
         <div>
           <h1>${PRODUCT}</h1>
           <p>Sage fabric · Motion recliner</p>
