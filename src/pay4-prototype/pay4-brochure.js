@@ -1,81 +1,105 @@
 const app = document.querySelector("#brochure-app");
 
 const ASSETS = {
-  pay4: `${import.meta.env.BASE_URL}assets/pay4-logo-by-pinelabs.png`
+  pay4: `${import.meta.env.BASE_URL}assets/pay4-logo-by-pinelabs.png`,
+  hdfc: new URL("./assets/hdfc-bank-logo.svg", import.meta.url).href,
+  icici: new URL("./assets/icici-bank-logo.svg", import.meta.url).href,
+  axis: new URL("./assets/axis-bank-logo.svg", import.meta.url).href,
+  kotak: new URL("./assets/kotak-bank-logo.svg", import.meta.url).href,
+  sbi: new URL("./assets/sbi-card-logo.svg", import.meta.url).href
 };
 
-const issuerNames = ["HDFC Bank", "ICICI Bank", "Axis Bank", "Kotak", "SBI Card"];
+const issuers = [
+  { name: "HDFC Bank", logo: ASSETS.hdfc, className: "issuer-hdfc" },
+  { name: "ICICI Bank", logo: ASSETS.icici, className: "issuer-icici" },
+  { name: "Axis Bank", logo: ASSETS.axis, className: "issuer-axis" },
+  { name: "Kotak", logo: ASSETS.kotak, className: "issuer-kotak" },
+  { name: "SBI Card", logo: ASSETS.sbi, className: "issuer-sbi", status: "Coming soon" }
+];
 
 const customerBenefits = [
-  ["Smaller upfront payment", "Turn a ₹40,000 decision into a ₹10,000 today decision."],
-  ["Simple structure", "No tenure maze. No complex EMI discovery. Just 4 clear payments."],
-  ["Credit-card led", "Works through eligible credit cards from participating issuers."],
-  ["Transparent checkout", "Payment schedule, today’s amount and processing fee are shown before authentication."]
+  ["Smaller upfront payment", "Turns a ₹40,000 decision into a ₹10,000 today decision."],
+  ["Simple structure", "No tenure maze. One simple construct: Pay in 4."],
+  ["Credit-card funded", "Customers use eligible credit cards from participating issuers."],
+  ["Transparent checkout", "Schedule, today’s amount and processing fee are shown before authentication."]
 ];
 
 const merchantBenefits = [
   ["Higher conversion", "Reduce checkout hesitation by lowering the upfront payment burden."],
-  ["Higher AOV", "Help customers upgrade to higher-value carts when the payment is split."],
-  ["Lower discount dependency", "Use affordability instead of always relying on coupons and markdowns."],
+  ["Higher AOV", "Help customers upgrade to higher-value carts when payment is split."],
+  ["Lower discount dependency", "Use affordability instead of always relying on coupons."],
+  ["Lower commercial complexity", "One merchant-facing Pay4 charge, with issuer economics handled through the program."],
   ["Upfront settlement", "Merchant receives full order value upfront, net of Pay4 commercial charges."],
-  ["No repayment risk", "Customer repayment is managed by the issuing bank."],
   ["Cleaner checkout", "Pay4 appears as a payment mode, not as a complicated EMI submenu."]
 ];
 
 const journeySteps = [
-  ["Customer reaches checkout", "Pay4 appears as a payment mode alongside UPI, Cards, Net Banking and Wallets."],
-  ["Customer selects Pay4", "Customer sees ₹10,000 × 4 months for a ₹40,000 purchase."],
-  ["Customer chooses credit card", "Customer selects a saved eligible credit card or adds a new credit card."],
-  ["Customer authenticates", "Bank authentication happens through standard card authentication."],
-  ["Merchant gets paid", "Order is marked paid for the full amount. Bank manages future payments."]
+  ["Customer reaches checkout", "Pay4 appears alongside UPI, Cards, Net Banking and Wallets."],
+  ["Customer selects Pay4", "A ₹40,000 purchase is reframed as ₹10,000 × 4 payments."],
+  ["Customer chooses card", "Saved eligible card or new eligible credit card inside Pay4."],
+  ["Customer authenticates", "Standard card authentication with the issuer bank."],
+  ["Merchant gets paid", "Order is paid for the full value; bank manages future payments."]
 ];
 
 const categories = [
-  ["Furniture", "Upgrade-led purchases with higher cart values."],
-  ["Mattresses", "Considered purchases where affordability can accelerate decisioning."],
+  ["Furniture", "Upgrade-led carts with higher values."],
+  ["Mattresses", "Considered purchases with affordability friction."],
   ["Fashion & lifestyle", "Premiumization without deep discounting."],
   ["Travel", "High-intent bookings with flexibility needs."],
-  ["Healthcare & wellness", "Planned and semi-planned spends that benefit from split payments."],
-  ["Education & upskilling", "Course and upskilling payments with affordability needs."],
-  ["Eyewear", "Mid-ticket premium purchases with upgrade potential."],
+  ["Healthcare", "Planned and semi-planned spends."],
+  ["Education", "Course and upskilling payments."],
+  ["Eyewear", "Mid-ticket premium purchases."],
   ["Premium retail", "AOV expansion through lower upfront payment."]
 ];
 
 const integrationOptions = [
-  [
-    "Hosted Checkout Activation",
-    "Best for merchants already using Pine Labs hosted checkout.",
-    "Pay4 can be enabled as a payment mode through merchant configuration. No front-end build is required for basic acceptance."
-  ],
-  [
-    "Pay4 Affordability Widget",
-    "Best for merchants who want Pay4 discovery before checkout.",
-    "A lightweight widget can show “Pay ₹10,000 × 4 with Pay4” on product pages, cart pages and checkout pages."
-  ],
-  [
-    "Pay4 Checkout API",
-    "Best for large merchants with custom checkout.",
-    "Merchants can call Pay4 eligibility and pricing APIs to render Pay4 natively within their checkout."
-  ]
+  ["Hosted Checkout", "Enable Pay4 as a payment mode for merchants already on Pine Labs hosted checkout."],
+  ["Affordability Widget", "Surface Pay ₹10,000 × 4 with Pay4 on product pages, cart pages and checkout."],
+  ["Checkout API", "Allow large merchants to render Pay4 eligibility and pricing natively."]
+];
+
+const integrationFlow = [
+  "Merchant site/app",
+  "Pay4 availability & pricing",
+  "Pay4 checkout selection",
+  "Card authentication",
+  "Payment success callback",
+  "Settlement & reporting"
+];
+
+const partyModel = [
+  ["Customer", "Pays in 4 using an eligible credit card. Issuer-specific processing fee may apply."],
+  ["Merchant", "Sees one Pay4 charge and receives upfront settlement net of Pay4 commercials."],
+  ["Issuer Bank", "Manages card eligibility, repayment schedule, processing fee and future collections."],
+  ["Pine Labs", "Orchestrates checkout, issuer integration, pricing, settlement and reconciliation."]
+];
+
+const waterfall = [
+  ["Start", "₹100 purchase", "Customer purchase value", "start"],
+  ["Less", "~₹3.25", "Subvention / no-cost EMI bridge", "cost"],
+  ["Equals", "₹96.75", "Auth amount", "value"],
+  ["Less", "~₹1.60", "Acquirer / card cost", "cost"],
+  ["Equals", "~₹95.10", "Received from acquiring leg", "inflow"],
+  ["Settle", "₹96.00", "Merchant settlement", "settlement"],
+  ["Add", "~₹1.70", "Bank program fee receivable", "receivable"],
+  ["Final", "~₹1.05", "Illustrative gross margin", "margin"]
 ];
 
 const engineCards = [
-  ["Checkout Engine", "Displays Pay4, captures consent and routes to card authentication."],
-  ["Pricing Engine", "Calculates merchant fee, customer processing fee, subvention, taxes and settlement impact."],
-  ["Bank Program Engine", "Maintains issuer eligibility, BIN rules, scheme codes, booking mode and refund capabilities."],
-  ["Settlement Engine", "Settles merchant upfront, net of Pay4 charges, and tracks bank/acquirer settlement."],
-  ["Reporting and Reconciliation Engine", "Provides merchant reports, bank reports, transaction status, refunds and program fee receivables."]
+  ["Checkout", "Displays Pay4, captures consent and routes to card authentication."],
+  ["Pricing", "Calculates merchant fee, processing fee, subvention, taxes and settlement impact."],
+  ["Bank Program", "Maintains issuer eligibility, BIN rules, scheme codes and refund capabilities."],
+  ["Settlement", "Settles merchants upfront and tracks bank/acquirer settlement legs."],
+  ["Reconciliation", "Provides merchant reports, bank reports, transaction status and receivables."]
 ];
 
 const risks = [
-  ["Customer confusion", "Customer may not understand card limit usage, future deductions or processing fee.", "Clear schedule, processing fee disclosure and confirmation messaging."],
-  ["Bank rail inconsistency", "Different issuers may implement Pay4 through different rails.", "Bank-wise adapters with one consistent customer proposition."],
-  ["Refund complexity", "Full and partial refunds require coordination between merchant, Pine Labs and issuer.", "Certify refund behavior bank-wise before enabling partial refunds."],
-  ["Processing fee friction", "Bank-wise fees may hurt conversion for lower tickets.", "Show exact fee before authentication and tune minimum order thresholds."],
-  ["Settlement mismatch", "Pine Labs may receive acquirer settlement on auth amount but settle merchant on purchase amount less Pay4 fee.", "Dedicated Pay4 ledger and settlement reconciliation."],
-  ["Bank program fee receivable risk", "Pay4 economics depend on issuer program fee collection.", "Monthly invoicing, receivables tracking and bank-wise reconciliation."],
-  ["Unsupported card frustration", "Customers may try debit cards or unsupported credit cards.", "Show supported issuers before card entry and validate BIN early."],
-  ["Over-positioning as BNPL", "Pay4 should not be perceived as separate underwriting-led lending.", "Position as credit-card-funded Pay-in-4 with issuer-managed repayment."]
+  ["Product", "Customer confusion", "Card limit usage, future deductions or processing fee may be unclear.", "Clear schedule, fee disclosure and confirmation messaging."],
+  ["Bank", "Bank rail inconsistency", "Issuers may implement Pay4 through different rails.", "Bank-wise adapters with one consistent customer proposition."],
+  ["Finance", "Settlement mismatch", "Acquirer settlement, merchant settlement and Pay4 fee may not align naturally.", "Dedicated Pay4 ledger and settlement reconciliation."],
+  ["Support", "Refund complexity", "Full and partial refunds require coordination across merchant, Pine Labs and issuer.", "Certify refund behavior bank-wise before enabling partial refunds."],
+  ["Product", "Unsupported card friction", "Customers may try debit cards or unsupported credit cards.", "Show issuers before card entry and validate BIN early."],
+  ["Bank", "Receivable risk", "Economics depend on issuer program fee collection.", "Monthly invoicing, receivables tracking and bank-wise reconciliation."]
 ];
 
 function pay4Logo(className = "pay4-logo") {
@@ -88,19 +112,21 @@ function pineLabsWordmark() {
 
 function pageShell(number, kicker, title, content, modifier = "") {
   return `
-    <section class="brochure-sheet ${modifier}" aria-label="Page ${number}: ${title}">
-      <header class="sheet-header">
-        <div class="brand-row">
-          ${pay4Logo("sheet-pay4-logo")}
+    <section class="brochure-page ${modifier}" aria-label="Page ${number}: ${title}">
+      <header class="page-header">
+        <div class="brand-lockup">
+          ${pay4Logo("header-pay4-logo")}
           ${pineLabsWordmark()}
         </div>
-        <div class="page-meta">
+        <div class="page-index">
           <span>${kicker}</span>
           <strong>${String(number).padStart(2, "0")}</strong>
         </div>
       </header>
-      ${content}
-      <footer class="sheet-footer">
+      <div class="page-body">
+        ${content}
+      </div>
+      <footer class="page-footer">
         <span>Pay4 by Pine Labs</span>
         <span>Credit-card-funded affordability for online checkout.</span>
       </footer>
@@ -110,10 +136,92 @@ function pageShell(number, kicker, title, content, modifier = "") {
 
 function card(title, copy, className = "") {
   return `
-    <article class="info-card ${className}">
+    <article class="content-card ${className}">
       <h3>${title}</h3>
       <p>${copy}</p>
     </article>
+  `;
+}
+
+function issuerLogoRow({ compact = false, viewAll = false } = {}) {
+  return `
+    <section class="issuer-panel ${compact ? "issuer-panel-compact" : ""}">
+      <div class="issuer-label">Accepted Credit Card Issuers</div>
+      <div class="issuer-logo-row">
+        ${issuers.map((issuer) => `
+          <div class="issuer-logo-pill ${issuer.className}" title="${issuer.name}">
+            <img src="${issuer.logo}" alt="${issuer.name}" />
+            ${issuer.status ? `<small>${issuer.status}</small>` : ""}
+          </div>
+        `).join("")}
+        ${viewAll ? `<button class="issuer-view-all" type="button">View all supported banks</button>` : ""}
+      </div>
+    </section>
+  `;
+}
+
+function checkoutMockup() {
+  return `
+    <aside class="checkout-mockup" aria-label="Pay4 online checkout module">
+      <div class="browser-bar">
+        <span></span>
+        <strong>gateway.plural.com</strong>
+      </div>
+      <div class="checkout-top">
+        <div>
+          <span>Paying To</span>
+          <strong>Stanley Living</strong>
+        </div>
+        <div>
+          <span>Total Payable</span>
+          <strong class="checkout-amount">₹40,000</strong>
+        </div>
+      </div>
+      <div class="checkout-pay4">
+        <div class="checkout-pay4-head">
+          ${pay4Logo("mock-pay4-logo")}
+          <span>NEW</span>
+        </div>
+        <p>Pay one-fourth now and the rest over the next 3 months.</p>
+        <div class="amount-pair">
+          <div>
+            <span>Pay in 4 Payments</span>
+            <strong>₹10,000 × 4 months</strong>
+          </div>
+          <div>
+            <span>Pay Today</span>
+            <strong>₹10,099</strong>
+          </div>
+        </div>
+        ${issuerLogoRow({ compact: true })}
+      </div>
+    </aside>
+  `;
+}
+
+function systemModel() {
+  const cards = [
+    ["01", "Customer", "Pays one-fourth today and the rest over the next 3 months using an eligible credit card."],
+    ["02", "Merchant", "Receives full order value upfront, net of Pay4 commercial charges."],
+    ["03", "Issuer Bank", "Manages card eligibility, repayment schedule, processing fee and future collections."]
+  ];
+
+  return `
+    <section class="system-model">
+      <div class="system-copy">
+        <span class="eyebrow">What is Pay4?</span>
+        <p>Pay4 is a standalone online checkout payment mode. It is embedded directly into Pine Labs Online PG, uses eligible credit cards from participating issuers, and applies at order level rather than SKU or brand level.</p>
+      </div>
+      <div class="model-cards">
+        ${cards.map(([number, title, copy]) => `
+          <article>
+            <span>${number}</span>
+            <h3>${title}</h3>
+            <p>${copy}</p>
+          </article>
+        `).join("")}
+      </div>
+    </section>
   `;
 }
 
@@ -123,71 +231,57 @@ function pageOne() {
     "What is Pay4",
     "Affordability, built into checkout.",
     `
-      <div class="cover-grid">
-        <div class="cover-copy">
-          <div class="cover-brand">
-            ${pay4Logo("cover-pay4-logo")}
-            ${pineLabsWordmark()}
-          </div>
+      <div class="cover-layout">
+        <section class="cover-copy">
+          <span class="eyebrow">Online PG affordability</span>
           <h1>Affordability, built into checkout.</h1>
           <p class="lead">Pay4 lets customers split online purchases into 4 simple payments using eligible credit cards, while merchants get paid upfront.</p>
-          <div class="proof-chip-row">
+          <div class="proof-row">
             <span>Credit cards only</span>
             <span>Merchant paid upfront</span>
-            <span>Built for online checkout</span>
+            <span>Always-on for enabled merchants</span>
+            <span>No Pine Labs underwriting</span>
           </div>
-        </div>
+        </section>
         ${checkoutMockup()}
       </div>
-
-      <div class="explainer-panel">
-        <div>
-          <span class="section-kicker">What is Pay4?</span>
-          <p>Pay4 is a standalone online checkout payment mode that lets eligible credit-card customers split a purchase into four simple payments. The customer completes payment using standard card authentication, the merchant receives full order value upfront, and the issuing bank manages the repayment schedule.</p>
-        </div>
-        <div class="mini-model">
-          ${card("Customer", "Pays one-fourth today and the rest over the next 3 months.")}
-          ${card("Merchant", "Receives full order value upfront, net of Pay4 charges.")}
-          ${card("Bank", "Drives incremental credit-card spend and short-tenure repayment volume.")}
-        </div>
-      </div>
+      ${systemModel()}
     `,
-    "cover-sheet"
+    "cover-page"
   );
 }
 
-function checkoutMockup() {
+function emiComparison() {
   return `
-    <aside class="checkout-mockup" aria-label="Pay4 checkout mockup">
-      <div class="mock-browser">
-        <span></span>
-        <strong>gateway.plural.com</strong>
+    <section class="emi-comparison">
+      <div class="comparison-title">
+        <span class="eyebrow">Pay4 vs Traditional EMI</span>
+        <p>Instead of multiple tenures, hidden offer rules and issuer-by-issuer discovery, Pay4 presents one simple construct: Pay in 4.</p>
       </div>
-      <div class="mock-header">
-        <span>Merchant</span>
-        <strong>Stanley Living</strong>
-        <span>Total Payable</span>
-        <strong class="mock-amount">₹40,000</strong>
+      <div class="comparison-columns">
+        <article>
+          <h3>Traditional EMI</h3>
+          <ul>
+            <li>Often discovered late inside card/EMI flows</li>
+            <li>Multiple tenures and issuer-specific rules</li>
+            <li>Campaign-led or offer-led</li>
+            <li>Eligibility and pricing can feel unclear</li>
+            <li>Higher merchant complexity across MDR, EMI fee and subvention</li>
+          </ul>
+        </article>
+        <article class="pay4-column">
+          <h3>Pay4</h3>
+          <ul>
+            <li>Always-on payment mode at checkout</li>
+            <li>One simple construct: Pay in 4</li>
+            <li>Visible for enabled merchants</li>
+            <li>Usable by customers with eligible credit cards from participating issuers</li>
+            <li>No Pine Labs underwriting journey</li>
+            <li>One merchant-facing Pay4 commercial</li>
+          </ul>
+        </article>
       </div>
-      <div class="mock-pay4-card">
-        <div class="mock-pay4-head">
-          ${pay4Logo("mock-pay4-logo")}
-          <span>NEW</span>
-        </div>
-        <p>Payment Mode: Pay4 by Pine Labs</p>
-        <div class="mock-tiles">
-          <div><span>Pay in 4 Payments</span><strong>₹10,000 × 4 months</strong></div>
-          <div><span>Pay Today</span><strong>₹10,099</strong></div>
-        </div>
-        <div class="issuer-strip">
-          <span>HDFC Bank</span>
-          <span>ICICI Bank</span>
-          <span>Axis Bank</span>
-          <span>Kotak</span>
-          <span>SBI Card <small>Coming soon</small></span>
-        </div>
-      </div>
-    </aside>
+    </section>
   `;
 }
 
@@ -197,52 +291,124 @@ function pageTwo() {
     "Customer + Merchant Pitch",
     "From “not now” to “paid now”.",
     `
-      <div class="title-block">
-        <h1>From “not now” to “paid now”.</h1>
-        <p>Pay4 reframes a high upfront amount into a simple four-payment decision for customers, while giving merchants an affordability lever that does not depend on discounting.</p>
+      <div class="pitch-title">
+        <div>
+          <h1>From “not now” to “paid now”.</h1>
+          <p>Customers often abandon not because they do not want the product, but because the full upfront amount feels too high.</p>
+        </div>
+        <div class="before-after">
+          <div>
+            <span>Before</span>
+            <strong>Pay ₹40,000 today</strong>
+          </div>
+          <div class="arrow">→</div>
+          <div>
+            <span>After</span>
+            <strong>Pay ₹10,000 today + 3 monthly payments</strong>
+          </div>
+        </div>
       </div>
 
-      <div class="two-column-story">
+      <div class="pitch-grid">
         <section>
-          <span class="section-kicker">Why customers choose Pay4</span>
-          <p class="section-copy">Customers do not always abandon because they do not want the product. They abandon because the full upfront amount feels too high. Pay4 reframes the decision from paying the full amount today to paying one-fourth today.</p>
-          <div class="benefit-grid customer-grid">
+          <span class="eyebrow">Why customers choose Pay4</span>
+          <div class="benefit-grid">
             ${customerBenefits.map(([title, copy]) => card(title, copy)).join("")}
           </div>
-          <div class="before-after">
-            <div>
-              <span>Before</span>
-              <strong>Pay ₹40,000 today</strong>
-            </div>
-            <div class="arrow-line">→</div>
-            <div>
-              <span>After</span>
-              <strong>Pay ₹10,000 today + 3 monthly payments</strong>
-            </div>
-          </div>
         </section>
-
         <section>
-          <span class="section-kicker">Why merchants activate Pay4</span>
-          <p class="section-copy">Pay4 gives merchants an affordability lever without making discounting the only conversion tool.</p>
-          <div class="benefit-grid merchant-grid">
-            ${merchantBenefits.map(([title, copy]) => card(title, copy, "compact-card")).join("")}
-          </div>
-          <div class="comparison-card">
-            <div>
-              <span>Without Pay4</span>
-              <p>Full upfront amount. Customer asks for discount. Merchant loses margin or loses sale.</p>
-            </div>
-            <div>
-              <span>With Pay4</span>
-              <p>One-fourth upfront. Customer completes purchase. Merchant gets paid upfront.</p>
-            </div>
+          <span class="eyebrow">Why merchants activate Pay4</span>
+          <div class="benefit-grid merchant-benefits">
+            ${merchantBenefits.map(([title, copy]) => card(title, copy, "tight-card")).join("")}
           </div>
         </section>
       </div>
+
+      ${emiComparison()}
+
+      <section class="merchant-note">
+        <strong>For merchants, Pay4 replaces fragmented EMI economics with a single Pay4 commercial construct, while issuer-side economics are handled through the program.</strong>
+        <span>Pay4 is designed as an always-on checkout payment mode for enabled merchants, not a campaign customers need to discover.</span>
+      </section>
     `,
-    "pitch-sheet"
+    "pitch-page"
   );
+}
+
+function journeyDiagram() {
+  return `
+    <section class="journey-diagram">
+      ${journeySteps.map(([title, copy], index) => `
+        <article class="journey-node">
+          <span>${String(index + 1).padStart(2, "0")}</span>
+          <h3>${title}</h3>
+          <p>${copy}</p>
+        </article>
+      `).join("")}
+    </section>
+  `;
+}
+
+function pay4ModuleMockup() {
+  return `
+    <aside class="pay4-module">
+      <div class="checkout-pay4-head">
+        ${pay4Logo("mock-pay4-logo")}
+        <span>NEW</span>
+      </div>
+      <p>Pay one-fourth now and the rest over the next 3 months.</p>
+      <div class="module-meta">
+        <span>Credit cards only</span>
+        <span>Order-level financing</span>
+      </div>
+      <div class="amount-pair compact-amounts">
+        <div>
+          <span>Pay in 4 Payments</span>
+          <strong>₹10,000 × 4</strong>
+        </div>
+        <div>
+          <span>Pay Today</span>
+          <strong>₹10,099</strong>
+        </div>
+      </div>
+      ${issuerLogoRow({ compact: true })}
+      <div class="card-preview">
+        <span>Add eligible credit card</span>
+        <button type="button">Pay ₹10,099 now</button>
+      </div>
+    </aside>
+  `;
+}
+
+function categoryGrid() {
+  return `
+    <section class="category-panel">
+      <div class="section-headline">
+        <span class="eyebrow">Built for mid-ticket online commerce</span>
+        <p>Best suited for categories where customers have purchase intent, but the upfront payment creates hesitation.</p>
+      </div>
+      <div class="category-grid">
+        ${categories.map(([title, copy]) => card(title, copy, "category-card")).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function integrationPanel() {
+  return `
+    <section class="integration-panel">
+      <div class="integration-topline">
+        <span class="eyebrow">Designed for merchant activation</span>
+        <strong>One activation. One payment mode. One settlement experience.</strong>
+      </div>
+      <div class="integration-options">
+        ${integrationOptions.map(([title, copy]) => card(title, copy, "integration-card")).join("")}
+      </div>
+      <div class="integration-flow">
+        ${integrationFlow.map((item) => `<span>${item}</span>`).join("")}
+      </div>
+    </section>
+  `;
 }
 
 function pageThree() {
@@ -251,82 +417,86 @@ function pageThree() {
     "Journey + Categories + Integration",
     "A checkout journey built for affordability.",
     `
-      <div class="title-block compact-title">
+      <div class="journey-title">
         <h1>A checkout journey built for affordability.</h1>
-        <p>Pay4 is designed to surface as a standalone online payment mode, then move customers through a familiar card-funded authentication flow.</p>
+        <p>Pay4 appears as a standalone online payment mode, then moves customers through a familiar card-funded authentication flow.</p>
       </div>
+      ${journeyDiagram()}
+      <div class="journey-layout">
+        ${pay4ModuleMockup()}
+        ${categoryGrid()}
+      </div>
+      ${integrationPanel()}
+    `,
+    "journey-page"
+  );
+}
 
-      <div class="journey-row">
-        ${journeySteps.map(([title, copy], index) => `
-          <article class="journey-step">
-            <span>${index + 1}</span>
-            <h3>${title}</h3>
+function partyModelCards() {
+  return `
+    <section class="party-model">
+      <span class="eyebrow">Four-party operating model</span>
+      <div class="party-grid">
+        ${partyModel.map(([title, copy]) => card(title, copy, "party-card")).join("")}
+      </div>
+      <p class="plain-explainer">The merchant sees one Pay4 charge. Pine Labs manages the underlying issuer subvention, acquirer cost and bank program receivable.</p>
+    </section>
+  `;
+}
+
+function commercialWaterfall() {
+  return `
+    <section class="waterfall-panel">
+      <div class="waterfall-head">
+        <span class="eyebrow">Illustrative ₹100 commercial flow</span>
+        <p>Color separates customer purchase value, deductions, acquiring-leg inflow, merchant settlement, bank receivable and final margin.</p>
+      </div>
+      <div class="legend-row">
+        <span class="legend-inflow">Inflow / value retained</span>
+        <span class="legend-cost">Cost or deduction</span>
+        <span class="legend-receivable">Bank program receivable</span>
+        <span class="legend-margin">Illustrative margin</span>
+      </div>
+      <div class="waterfall">
+        ${waterfall.map(([label, value, copy, type]) => `
+          <article class="waterfall-step waterfall-${type}">
+            <span>${label}</span>
+            <strong>${value}</strong>
             <p>${copy}</p>
           </article>
         `).join("")}
       </div>
-
-      <div class="journey-content-grid">
-        ${pay4ModuleMockup()}
-        <section class="category-panel">
-          <span class="section-kicker">Built for mid-ticket online commerce.</span>
-          <p>Pay4 is best suited for categories where customers have purchase intent, but the upfront payment creates hesitation.</p>
-          <div class="category-grid">
-            ${categories.map(([title, copy]) => card(title, copy, "category-card")).join("")}
-          </div>
-        </section>
-      </div>
-
-      <section class="integration-panel">
-        <div class="integration-head">
-          <span class="section-kicker">Designed for seamless merchant activation.</span>
-          <strong>One activation. One payment mode. One settlement experience.</strong>
-        </div>
-        <div class="integration-options">
-          ${integrationOptions.map(([title, bestFor, copy]) => `
-            <article>
-              <h3>${title}</h3>
-              <strong>${bestFor}</strong>
-              <p>${copy}</p>
-            </article>
-          `).join("")}
-        </div>
-        <div class="integration-flow">
-          ${["Merchant site/app", "Pay4 availability and pricing", "Pay4 checkout selection", "Card authentication", "Payment success callback", "Settlement and reporting"].map((item) => `<span>${item}</span>`).join("")}
-        </div>
-      </section>
-    `,
-    "journey-sheet"
-  );
+      <small>Figures are illustrative and subject to bank-wise commercials, acquirer cost, merchant pricing and final program terms.</small>
+    </section>
+  `;
 }
 
-function pay4ModuleMockup() {
+function enginePanel() {
   return `
-    <aside class="module-mockup">
-      <div class="mock-pay4-head">
-        ${pay4Logo("mock-pay4-logo")}
-        <span>NEW</span>
+    <section class="engine-panel">
+      <span class="eyebrow">Operating engines</span>
+      <div class="engine-grid">
+        ${engineCards.map(([title, copy]) => card(title, copy, "engine-card")).join("")}
       </div>
-      <p>Pay one-fourth now and the rest over the next 3 months.</p>
-      <div class="mock-tiles">
-        <div><span>Pay in 4 Payments</span><strong>₹10,000 × 4 Payments</strong></div>
-        <div><span>Pay Today</span><strong>₹10,099</strong></div>
+    </section>
+  `;
+}
+
+function riskPanel() {
+  return `
+    <section class="risk-panel">
+      <span class="eyebrow">Key risks and mitigation</span>
+      <div class="risk-table">
+        ${risks.map(([tag, risk, why, mitigation]) => `
+          <article class="risk-row">
+            <span class="risk-tag">${tag}</span>
+            <strong>${risk}</strong>
+            <p>${why}</p>
+            <p>${mitigation}</p>
+          </article>
+        `).join("")}
       </div>
-      <div class="mini-issuer-row">
-        <strong>Accepted with these credit card issuers</strong>
-        <div>
-          <span>HDFC Bank</span>
-          <span>ICICI Bank</span>
-          <span>Axis Bank</span>
-          <span>Kotak</span>
-          <span>SBI Card <small>Coming Soon</small></span>
-        </div>
-      </div>
-      <div class="add-card-preview">
-        <span>Add eligible credit card</span>
-        <button type="button">Pay ₹10,099 now</button>
-      </div>
-    </aside>
+    </section>
   `;
 }
 
@@ -334,85 +504,33 @@ function pageFour() {
   return pageShell(
     4,
     "Commercials + Operating Model + Risks",
-    "Built as a program platform, not just a checkout button.",
+    "A program platform, not just a checkout button.",
     `
-      <div class="title-block compact-title">
-        <h1>Built as a program platform, not just a checkout button.</h1>
-        <p>Pay4 brings together checkout orchestration, issuer programs, pricing, settlement and reconciliation in one operating model.</p>
+      <div class="commercial-title">
+        <h1>A program platform, not just a checkout button.</h1>
+        <p>Pay4 combines checkout orchestration, issuer programs, pricing, settlement and reconciliation into one operating model.</p>
       </div>
-
-      <div class="commercial-layout">
-        <section class="party-model">
-          <span class="section-kicker">Commercial model snapshot</span>
-          <div class="party-grid">
-            ${card("Customer", "Pays in 4 using eligible credit card. Issuer-specific processing fee may apply.")}
-            ${card("Merchant", "Pays a single Pay4 fee deducted from settlement.")}
-            ${card("Issuer bank", "Books Pay4/EMI construct, manages repayment and participates through bank program economics.")}
-            ${card("Pine Labs", "Orchestrates checkout, bank integration, pricing, settlement, reporting and reconciliation.")}
-          </div>
-        </section>
-
-        <section class="commercial-flow-card">
-          <span class="section-kicker">For every ₹100 Pay4 purchase</span>
-          <div class="money-stack">
-            <div><span>Merchant-facing Pay4 fee</span><strong>4.00</strong></div>
-            <div><span>Merchant settlement</span><strong>96.00</strong></div>
-            <div><span>Pay4 subvention / no-cost EMI bridge</span><strong>~3.25</strong></div>
-            <div><span>Card/acquirer cost on auth amount</span><strong>~1.60</strong></div>
-            <div><span>Bank program fee receivable</span><strong>~1.70</strong></div>
-            <div class="highlight"><span>Illustrative Pine Labs gross margin</span><strong>~1.05</strong></div>
-          </div>
-          <p>Figures are illustrative and subject to bank-wise commercials, acquirer cost, merchant pricing and final program terms.</p>
-        </section>
+      <div class="commercial-grid">
+        ${partyModelCards()}
+        ${commercialWaterfall()}
       </div>
-
-      <section class="mechanics-panel">
-        <span class="section-kicker">Commercial mechanics, simplified</span>
-        <div class="mechanics-flow">
-          ${["Purchase amount: ₹100", "Subvention / ISV: ~₹3.25", "Auth amount: ₹96.75", "Acquirer settlement after buy rate: ~₹95.10", "Merchant settlement: ₹96.00", "Bank program fee receivable: ~₹1.70", "Illustrative margin: ~₹1.05"].map((item) => `<span>${item}</span>`).join("")}
-        </div>
-        <div class="definition-grid">
-          ${card("Subvention / ISV", "The affordability bridge that enables a no-cost customer experience.")}
-          ${card("Auth amount", "Purchase amount after subvention.")}
-          ${card("Acquirer buy rate", "Card processing cost deducted on the auth amount.")}
-          ${card("Bank program fee", "Issuer-side commercial receivable paid to Pine Labs for program participation.")}
-          ${card("Merchant Pay4 fee", "Single merchant-facing charge deducted from settlement.")}
-        </div>
-      </section>
-
-      <div class="operating-risk-grid">
-        <section class="engine-panel">
-          <span class="section-kicker">Operating model</span>
-          <div class="engine-grid">
-            ${engineCards.map(([title, copy]) => card(title, copy, "engine-card")).join("")}
-          </div>
-        </section>
-
-        <section class="risk-panel">
-          <span class="section-kicker">Key risks and mitigation</span>
-          <div class="risk-table">
-            <div class="risk-head"><span>Risk</span><span>Why it matters</span><span>Mitigation</span></div>
-            ${risks.map(([risk, why, mitigation]) => `
-              <div class="risk-row">
-                <strong>${risk}</strong>
-                <span>${why}</span>
-                <span>${mitigation}</span>
-              </div>
-            `).join("")}
-          </div>
-        </section>
+      <div class="ops-risk-grid">
+        ${enginePanel()}
+        ${riskPanel()}
       </div>
-
       <section class="final-cta">
-        <h2>Make affordability the default checkout behavior.</h2>
-        <p>Pay4 brings a simple promise to online commerce: customers pay in 4, merchants get paid upfront, and banks grow credit-card-led repayment volume. Built into Pine Labs Online PG, Pay4 can become the affordability layer for India’s next wave of digital commerce.</p>
         <div>
+          <span class="eyebrow">Launch proposition</span>
+          <h2>Make affordability the default checkout behavior.</h2>
+          <p>Pay4 brings a simple promise to online commerce: customers pay in 4, merchants get paid upfront, and banks grow credit-card-led repayment volume.</p>
+        </div>
+        <div class="cta-actions">
           <a href="${import.meta.env.BASE_URL}?entry=pg&variant=b&user=first&eligible=true&outcome=success&step=checkout">Activate Pay4 for your checkout</a>
           <a href="${import.meta.env.BASE_URL}">Talk to Pine Labs</a>
         </div>
       </section>
     `,
-    "commercial-sheet"
+    "commercial-page"
   );
 }
 
@@ -424,7 +542,7 @@ function renderBrochure() {
           ${pay4Logo("nav-pay4-logo")}
           ${pineLabsWordmark()}
         </div>
-        <div>
+        <div class="nav-links">
           <a href="#page-1">01</a>
           <a href="#page-2">02</a>
           <a href="#page-3">03</a>
